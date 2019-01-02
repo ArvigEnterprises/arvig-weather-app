@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+          integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Heebo|Mukta+Mahee" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.0/jquery-ui.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkUOdZ5y7hMm0yrcCQoCvLwzdM6M8s5qk&callback=initMap">
+    </script>
+</head>
+<body style="margin: 0;">
+<iframe src="live.html" width="1920" height="1080" frameborder="0" style="margin-bottom: -10px;"></iframe>
+<div class="text-arvig-green row m-0 fixed-bottom text-view-2" role="alert">
+    <!--<button type="button" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>-->
+    <div class="col-1 pl-3 text-center pt-2 pb-2 text-white border border-danger bg-danger" style="border-radius: 10px 0px 0px 0px;">
+        <div class="align-middle">
+            <i class="fas fa-exclamation-triangle text-white"></i> Alert!
+        </div>
+    </div>
+    <div class="col-11 pl-0 bg-white text-danger" style="border-radius: 0px 10px 0px 0px;">
+        <marquee style="padding-bottom: 0px;padding-top: 10px;">
+            <span id="alertMessage">Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor!</span>
+        </marquee>
+    </div>
+</div>
+
+</body>
+<script>
+    getAlert();
+    function getAlert(){
+        console.log('getAlert Called');
+        var alertMessage = '';
+        $.ajax({
+            // url: 'https://api.weather.gov/alerts?status=actual&area=MN',
+            url: 'https://api.weather.gov/alerts?status=actual&area=MN&urgency=future,expected,immediate&severity=severe&certainty=observed',
+            success: function (data) {
+                console.log('------------------getAlerts--------------------------');
+                console.log(data);
+                var count = 0;
+                var pipe = '';
+                $.each(data.features, function (key, value) {
+                    if(count > 0){
+                        pipe = ' | ';
+                    }
+                    var alert = value.properties;
+                    var counties = alert.areaDesc.replace(';', '');
+                    alertMessage += pipe + alert.headline + ' - Issued for the following counties : ';
+                    alertMessage += counties;
+                });
+                $('#alertMessage').text(alertMessage);
+            },
+            error: function () {
+                // $('#output').html('Bummer: there was an error!');
+            },
+        });
+        setTimeout(function () {
+            getAlert();
+        }, 60000)
+    }
+</script>
+</html>

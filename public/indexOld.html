@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+          integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Heebo|Mukta+Mahee" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.0/jquery-ui.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
+    <script src="js/bootstrap.js"></script>
+    <style>
+        body{font-family: 'Mukta Mahee', sans-serif}
+        h1{font-family: 'Fjalla One', sans-serif}
+        h2, h3, h4, h5{font-family: 'Mukta Mahee', sans-serif}
+        h1{font-size: 3vw;}
+        h2{font-size: 2.2vw;}
+        h3{font-size: 1.5vw;}
+        p{font-family: 'Heebo', sans-serif;}
+        .seven-cols {
+            width: 14.285714285714285714285714285714%;
+        }
+        .Fjalla{font-family: 'Fjalla One', sans-serif}
+        .Mukta{font-family: 'Mukta Mahee', sans-serif}
+        .Heebo{font-family: 'Heebo', sans-serif}
+
+        .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+            color: #fff;
+            background-color: transparent;
+            border-color: #C1D63E #C1D63E #fff;
+            border-bottom: 1px solid #343a40;
+            transition: border 1s linear;
+
+        }
+
+        .nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
+            border-color: #C1D63E #C1D63E #C1D63E;
+        }
+        .nav-tabs .nav-link, .nav-tabs .nav-link {
+            transition: border 1s linear;
+        }
+        .nav-tabs {
+            border-bottom: 1px solid #C1D63E;
+        }
+        .headerTabs .nav-tabs {
+            border-bottom: none;
+        }
+        .headerTabs .nav-tabs .nav-link.active, .headerTabs .nav-tabs .nav-item.show .nav-link {
+            color: #fff;
+            border: none;
+
+        }
+        .headerTabs .nav-tabs .nav-link:hover, .headerTabs .nav-tabs .nav-link:focus {
+            border: none;
+        }
+
+
+        #nav-tab-testContent .forecastTabContent {
+            border-bottom: none;
+        }
+        #nav-tabContent .forecastTabContent {
+            font-size: 2vw;
+            border-bottom: 1px solid #C1D63E;
+            padding: 40px 20px;
+        }
+
+        .forecastTabContentTitle {
+            font-size: 4vw;
+        }
+
+        .forecastTabContent i.sm {
+            font-size: 1vw;
+        }
+
+        .forecastTabContent i.md {
+            font-size: 2vw;
+        }
+
+        .forecastTabContent i.lg {
+            font-size: 3vw;
+        }
+        i.fas{
+            color:#C1D63E;
+        }
+        .text-arvig-green{
+            color:#C1D63E;
+        }
+        .text-view-1{
+            font-size: 0.5vw;
+        }
+        .text-view-2{
+            font-size: 1.5vw;
+        }
+        .text-view-3{
+            font-size: 2.5vw;
+        }
+        .text-view-4{
+            font-size: 3.5vw;
+        }
+        .text-view-5{
+            font-size: 4.5vw;
+        }
+        .text-view-6{
+            font-size: 5.5vw;
+        }
+        .text-view-7{
+            font-size: 6.5vw;
+        }
+        .text-view-8{
+            font-size: 7.5vw;
+        }
+        .text-view-9{
+            font-size: 8.5vw;
+        }
+        .text-view-10{
+            font-size: 9.5vw;
+        }
+        .bg-arvig-green{
+            background-color:#C1D63E;
+        }
+        /*.scrollbar*/
+        /*{*/
+            /*margin-left: 30px;*/
+            /*float: left;*/
+            /*height: 300px;*/
+            /*width: 65px;*/
+            /*overflow-y: scroll;*/
+            /*margin-bottom: 25px;*/
+        /*}*/
+        /*.scrollbar::-webkit-scrollbar*/
+        /*{*/
+            /*width: 12px;*/
+            /*background-color: #F5F5F5;*/
+        /*}*/
+
+        .scrollbar::-webkit-scrollbar-track
+        {
+            background-color: #404040;
+        }
+
+        .scrollbar::-webkit-scrollbar
+        {
+            height: 8px;
+            background-color: #404040;
+        }
+
+        .scrollbar::-webkit-scrollbar-thumb
+        {
+            background-color: #5d5d5d;
+            border-radius: 10px;
+        }
+        .center{
+            margin: auto;
+            width: 50%;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body style="background-color: #404040">
+    <div class="d-none">
+        <input type="hidden" id="lonInput" name="lon"/>
+        <input type="hidden" id="latInput" name="lat"/>
+        <input class="" id="searchValue" type="text" name="search"/>
+        <i id="searchButton" class="fas fa-search"></i>
+        <!--<h1><i class="fas fa-search"></i> Sebeka, MN</h1>-->
+    </div>
+    <img class="float-right" src="img/R8_18160_Arvig_logo_RGB_Reversed.png" width="200" style="margin: 20px;"/>
+<div class="col-4 center headerTabs">
+<div class="row">
+            <div class="col-12">
+    <nav>
+        <div class="nav nav-tabs clearData text-view-3 col-12" id="nav-tab-test" role="tablist">
+            <div class="nav-item nav-link seven-cols pr-0 pl-0 col-5 active text-right" id="nav-tab-test-1" data-toggle="tab" href="#nav-test-1" role="tab" aria-controls="nav-test-1" aria-selected="true">
+                Forecast
+            </div>
+            <span class="col-2 text-center" style="font-size: 3.5vw" >|</span>
+            <div class="nav-item nav-link seven-cols pr-0 pl-0 col-5 text-left" id="nav-tab-test-2" data-toggle="tab" href="#nav-test-2" role="tab" aria-controls="nav-test-2" aria-selected="true">
+                Radar
+            </div>
+        </div>
+
+    </nav>
+            </div>
+</div>
+</div>
+<div class="tab-content clearData" id="nav-tab-testContent">
+    <div class="tab-pane fade show active forecastTabContent" id="nav-test-1" role="tabpanel" aria-labelledby="nav-test-1-tab">
+        <div class="col-12 bg-transparent text-white">
+                <div class="row">
+                    <div class="col-2 text-right">
+                        <h1><span id="currentTemp" class="text-view-9" style="color: #fff;">37</span><span class="text-view-9" style="color: #fff;">&#176;</span></h1>
+                    </div>
+                    <div class="col-2">
+                        <i class="fas fa-cloud-sun text-view-9"></i>
+                    </div>
+                    <div class="row col-8">
+                        <div class="col-4">
+                            <div class="row">
+                                <div class="col-6 Fjalla text-view-2"><i class="fas fa-thermometer-full"></i> H 40&#176;</div>
+                                <div class="col-6 Fjalla text-view-2"><i class="fas fa-wind"></i> W 5 <i class="fas fa-long-arrow-alt-down sm"></i></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 Fjalla text-view-2"><i class="fas fa-thermometer-empty"></i> L 10&#176;</div>
+                                <div class="col-6 Fjalla text-view-2"><i class="fas fa-tint"></i> P 0%</div>
+                            </div>
+                        </div>
+                        <div class="row col-8 text-center">
+                            <div class="col-12 text-center  text-view-3" id="currentForecast">Partially cloudy</div>
+                        </div>
+                    </div>
+                </div>
+            <div class="" id="weatherWidget">
+                <div>
+                    <nav>
+                        <div class="nav nav-tabs text-center clearData text-view-3" id="nav-tab" role="tablist">
+                        </div>
+                    </nav>
+                </div>
+                <div class="tab-content clearData" id="nav-tabContent">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade forecastTabContent" id="nav-test-2" role="tabpanel" aria-labelledby="nav-test-2-tab">
+        <!--<div class="card col-12 bg-transparent text-white">-->
+            <!--<p class="text-center">-->
+                <!--<a class="text-arvig-green" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">-->
+                    <!--RADAR-->
+                <!--</a>-->
+            <!--</p>-->
+            <!--<div class="collapse" id="collapseExample">-->
+                <div class="bg-transparent" id="radarBody">
+                    <!--<iframe src="https://www.rainviewer.com/map.html?loc=46.6344,-95.0977,6&oFa=0&oC=1&oU=0&oCS=1&oF=0&oAP=1&rmt=2&c=3&o=89&lm=0&th=1" width="100%" frameborder="0" style="border:0;height:50vh;" allowfullscreen></iframe>-->
+                    <!--<iframe src="https://www.rainviewer.com/map.html?loc=46.6297,-95.0912,6&oFa=0&oC=1&oU=0&oCS=1&oF=0&oAP=0&rmt=2&c=3&o=89&lm=0&th=1" width="100%" frameborder="0" style="border:0;height:50vh;" allowfullscreen></iframe>-->
+                </div>
+            <!--</div>-->
+        <!--</div>-->
+    </div>
+</div>
+</body>
+<script>
+
+    var weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    var abbr = {"Sunday":"SUN","Monday":"MON","Tuesday":"TUE","Wednesday":"WED","Thursday":"THUR","Friday":"FRI","Saturday":"SAT"};
+    var forecast = new Array();
+        // {"Sunday":[],"Monday":[],"Tuesday":[],"Wednesday":[],"Thursday":[],"Friday":[],"Saturday":[]};
+    function getForcast(gridData) {
+        forecast = new Array();
+        $.ajax({
+            url: gridData,
+            success: function (data) {
+                console.log('------------------gridData--------------------------');
+                console.log(data);
+                var percipCache;
+                $.each( data.properties.temperature.values, function( key, value ) {
+                    // forecast[counter] = {};
+
+                    var myDate = dateFromISO8601(value.validTime);
+                    var currentDate = new Date();
+                    var date = myDate.getDate();
+                    var dayName = weekday[myDate.getDay()];
+                    var span = getTimeSpan(value.validTime);
+                    var hour = myDate.getHours();
+                    var i;
+
+                    for (i = 0; i < span; i++) {
+                        var newHour = (hour + i);
+                        if(!forecast[date]){
+                            forecast[date] = {};
+                        }
+                        if(!forecast[date]['hours']){
+                            forecast[date]['hours'] = {};
+                        }
+                        myDate.setHours (newHour);
+                            forecast[date]['hours'][newHour] = {"dayName":dayName,"time":myDate,"temp":temperatureConverter(value.value)};
+                    }
+                    if(!forecast[date]['temp']){
+                        forecast[date]['temp'] = temperatureConverter(value.value);
+                    }
+                    if(!forecast[date]['dayName']){
+                        forecast[date]['dayName'] = dayName;
+                    }
+                });
+
+                $.each( data.properties.probabilityOfPrecipitation.values, function( key, value ) {
+                    var span = getTimeSpan(value.validTime);
+
+                    var myDate = dateFromISO8601(value.validTime);
+                    var currentDate = new Date();
+                    var hour = myDate.getHours();
+                    var date = myDate.getDate();
+                    var dayName = weekday[myDate.getDay()];
+
+                    for (i = 0; i < span; i++) {
+                        var newHour = (hour + i);
+                        if(forecast[date]['hours'][newHour]){
+                            forecast[date]['hours'][newHour]['percip'] = value.value;
+                        }
+                    }
+                    if(!forecast[date]['percip']){
+                        forecast[date]['percip'] = value.value;
+                    }
+                });
+                $.each( data.properties.windSpeed.values, function( key, value ) {
+                    var span = getTimeSpan(value.validTime);
+
+                    var myDate = dateFromISO8601(value.validTime);
+                    var currentDate = new Date();
+                    var hour = myDate.getHours();
+                    var date = myDate.getDate();
+                    var dayName = weekday[myDate.getDay()];
+
+                    for (i = 0; i < span; i++) {
+                        var newHour = (hour + i);
+                        if(forecast[date]['hours'][newHour]){
+                            forecast[date]['hours'][newHour]['wind'] = value.value;
+                        }
+                    }
+                    if(!forecast[date]['wind']){
+                        forecast[date]['wind'] = value.value;
+                    }
+                });
+                $.each( data.properties.windDirection.values, function( key, value ) {
+                    // forecast[counter] = {};
+                    var span = getTimeSpan(value.validTime);
+
+                    var myDate = dateFromISO8601(value.validTime);
+                    var currentDate = new Date();
+                    var hour = myDate.getHours();
+                    var date = myDate.getDate();
+                    var dayName = weekday[myDate.getDay()];
+
+                    for (i = 0; i < span; i++) {
+                        var newHour = (hour + i);
+                        if(forecast[date]['hours'][newHour]){
+                            forecast[date]['hours'][newHour]['windDirection'] = value.value;
+                        }
+                    }
+                    if(!forecast[date]['windDirection']){
+                        forecast[date]['windDirection'] = value.value;
+                    }
+                });
+        getForecast();
+            },
+            error: function () {
+                // $('#output').html('Bummer: there was an error!');
+            },
+        });
+    };
+    function getForecast(){
+        var tab = '';
+        var tabContent = '';
+        var currentTemp = 0;
+        var count = 0;
+        $('#nav-tabContent').html('');
+        $.each( forecast, function( date, info ) {
+            if(info && count < 7 ){
+
+            // console.log(date);
+            console.log(info);
+            currentTemp = Math.round(info.temp);
+            var active = (count < 1) ? "active" : "";
+                tab += '<div class="nav-item nav-link seven-cols pr-0 pl-0 ' + active +'" id="nav-' + date +'-tab" data-toggle="tab"\n' +
+                    '                             href="#nav-' + date +'" role="tab" aria-controls="nav-' + date +'" aria-selected="true">\n' +
+                    '                            <div class="col-12 pl-0 pr-0">\n' +
+                    '                                <h1>'+abbr[info.dayName]+'</h1>\n' +
+                    '                            </div>\n' +
+                    '                            <div class="col-12 pl-0 pr-0">\n' +
+                    '                                <i class="fas fa-cloud"></i>\n' +
+                    '                            </div>\n' +
+                    '                            <div class="col-12 pl-0 pr-0">\n' +
+                    '                                ' + currentTemp + '<span>&#176;</span>\n' +
+                    '                            </div>\n' +
+                    '                        </div>';
+
+            $('#nav-tabContent').append(buildTabContent(date, active, info, info.dayName));
+            count++;
+            }
+        });
+        $('#nav-tab').html(tab);
+    }
+
+    function getPoints(lat, lon) {
+        $.ajax({
+            url: 'https://api.weather.gov/points/' + lon + ',' + lat,
+            success: function (data) {
+                console.log('------------------getPoints--------------------------');
+                console.log(data);
+                getForecastData(data.properties.forecast);
+                // getForecastHrData(data.properties.forecastHourly);
+                getForcast(data.properties.forecastGridData);
+            },
+            error: function () {
+                // $('#output').html('Bummer: there was an error!');
+            },
+        });
+    };
+
+    function getForecastData(url) {
+        $.ajax({
+            url: url,
+            success: function (data) {
+                console.log('------------------getForecastData--------------------------');
+                console.log(data);
+                $('#currentForecast').text(data.properties.periods[0].shortForecast);
+                $('#currentTemp').text(data.properties.periods[0].temperature);
+            },
+            error: function () {
+                // $('#output').html('Bummer: there was an error!');
+            },
+        });
+    };
+
+    function getForecastHrData(url) {
+        $.ajax({
+            url: "https://api.weather.gov/gridpoints/FGF/154,43/forecast/hourly",
+            success: function (data) {
+                console.log('------------------getForecastData--------------------------');
+                console.log(data);
+                // $('#currentForecast').text(data.properties.periods[0].shortForecast);
+            },
+            error: function () {
+                // $('#output').html('Bummer: there was an error!');
+            },
+        });
+    };
+
+    function buildTabContent(count, active, data, dayName){
+        var show = (active == 'active') ? 'show' : '';
+        var tabContent = $('<div class="tab-pane fade ' + show +' ' + active +' forecastTabContent" id="nav-' + count +'" role="tabpanel" aria-labelledby="nav-' + count +'-tab">' +
+            '</div>');
+        $('#nav-tabContent').append(tabContent);
+        buildTabInnerContent(data, dayName,tabContent);
+        $('#nav-tabContent').append(tabContent);
+        return tabContent;
+    }
+
+    function buildTabInnerContent(data, dayName, tabContent){
+        var wrapper = $('<div class="row"></div>');
+        var titles = $('<div class="col-4"><div class="col-12 forecastTabContentTitle text-arvig-green text-center"><h1>'+dayName+'</h1></div>' +
+            '<div class="col-12">&nbsp;</div>' +
+            '<div class="col-12"><h3><i class="fas fa-thermometer-quarter"></i> Temp</h3></div>' +
+            '<div class="col-12"><h3><i class="fas fa-wind"></i> Wind</h3></div>' +
+            '<div class="col-12"><h3><i class="fas fa-tint"></i> Precipitation</h3></div></div>');
+        var info = $('<div class="col-8"></div>');
+        var header = $('<div class="row text-center"></div>');
+        var icons = $('<div class="row"></div>');
+        var temp = $('<div class="row"></div>');
+        var wind = $('<div class="row"></div>');
+        var percip = $('<div class="row"></div>');
+        var internalCount = 0;
+        wrapper.append(titles);
+        $.each( data.hours, function( key, value ) {
+            if(internalCount < 6){
+
+                var dataTime = new Date(value.time);
+                var currentTime = new Date();
+                var tempValue = (value.temp) ? Math.round(value.temp)+'&#176;':'-' ;
+                var windValue = (value.wind) ? Math.round(value.wind) + '  ' + windDirIcon(value.windDirection):'-' ;
+                var percipValue = (value.percip) ? value.percip + '%':'-' ;
+                if(dataTime > currentTime) {
+                    header.append('<div class="col-2 Fjalla">'+get12Hr(key)+'</div>');
+                    icons.append('<div class="col-2 text-center"><i class="fas fa-cloud-sun lg"></i></div>');
+                    temp.append('<div class="col-2 text-center Fjalla"><span>'+Math.round(value.temp)+'&#176;</span></div>');
+                    wind.append('<div class="col-2 text-center Fjalla">'+ windValue + '</div>');
+                    percip.append('<div class="col-2 text-center Fjalla">'+ percipValue +'</div>');
+                }
+
+            }
+            internalCount++;
+        });
+        info.append(header, icons, temp, wind, percip);
+        wrapper.append(titles, info);
+        tabContent.append(wrapper);
+        return true;
+
+
+    }
+
+    function getGeo(value) {
+        $.ajax({
+            url: 'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?f=json&singleLine='+ value +'&outFields=Match_addr,Addr_type',
+            success: function (data) {
+                console.log(data);
+                var location = data.candidates[0].location;
+                addRadar(location.x, location.y);
+                getPoints(location.x, location.y)
+            },
+            error: function () {
+                // $('#output').html('Bummer: there was an error!');
+            },
+        });
+    }
+    function addRadar(x,y){
+        // $('#radarBody').html('<iframe src="https://www.rainviewer.com/map.html?loc='+y+','+x+',6&oFa=0&oC=1&oU=0&oCS=1&oF=0&oAP=0&rmt=2&c=3&o=89&lm=0&th=1" width="100%" frameborder="0" style="border:0;height:100vh;" allowfullscreen></iframe>')
+        // $('#radarBody').html('<iframe src="https://www.rainviewer.com/map.html?loc='+y+','+x+',6&oFa=0&oC=1&oU=0&oCS=1&oF=0&oAP=1&rmt=2&c=3&o=89&lm=0&th=1" width="100%" frameborder="0" style="border:0;height:50vh;" allowfullscreen></iframe>')
+        $('#radarBody').html('<iframe src="https://www.rainviewer.com/map.html?loc='+y+','+x+',12&oFa=0&oC=1&oU=0&oCS=1&oF=0&oAP=1&rmt=2&c=3&o=84&lm=1&th=1" width="100%" frameborder="0" style="border:0;height:80vh;" allowfullscreen></iframe>')
+    }
+                $( "#searchValue" ).keyup(function(){
+                    setAutoComplete($(this).val());
+                })
+    function setAutoComplete(value) {
+        $.ajax({
+            url: 'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?f=json&singleLine='+ value +'&outFields=Match_addr,Addr_type',
+            success: function (data) {
+                if(data.candidates[0]){
+                    var address = data.candidates[0].address;
+                    $( "#searchValue" ).autocomplete({
+                        source: [address]
+                    });
+                }
+            },
+            error: function () {
+                // $('#output').html('Bummer: there was an error!');
+            },
+        });
+    }
+
+    function temperatureConverter(valNum) {
+        // return valNum;
+        valNum = parseFloat(valNum);
+        return (valNum * 1.8) + 32;
+    }
+
+    function dateFromISO8601(isostr) {
+        var parts = isostr.match(/\d+/g);
+        return new Date(parts[0], parts[1] - 1, parts[2], parts[3], parts[4], parts[5]);
+    }
+    function get12Hr(hour){
+        if(hour == 0) {
+            return '12AM'
+        }else if(hour > 12){
+            return (hour - 12) + 'PM'
+        } else {
+            return hour + 'AM'
+        }
+    }
+    function getTimeSpan(time){
+        var span = time.split("/");
+        var mystring = span[1];
+        mystring = mystring.match(/[0-9][0-9]|[0-9]/g);
+        return mystring[0];
+    }
+    function windDirIcon(deg = 0){
+        return '<i class="fas fa-long-arrow-alt-down sm" style="-webkit-transform: rotate(' + deg + 'deg);\n' +
+        '    -moz-transform: rotate(' + deg + 'deg);\n' +
+        '    -ms-transform: rotate(' + deg + 'deg);\n' +
+        '    -o-transform: rotate(' + deg + 'deg);\n' +
+        '    transform: rotate(' + deg + 'deg);"></i>';
+
+    }
+    $('#searchButton').click(function(){
+        var value = $('#searchValue').val();
+        $('.clearData').html('');
+        if(value){
+            getGeo(value);
+        }
+    })
+
+    function moveItem() {
+        var nextTab = $('#weatherWidget nav .nav-item.active').next('.nav-item');
+        if(nextTab.length){
+            nextTab.trigger('click');
+        } else {
+            clearInterval(loopTabs);
+            $('#nav-tab-test-2').trigger('click');
+            setTimeout(
+                function () {
+                    $('#weatherWidget nav').find('.nav-item').first().trigger('click');
+                    $('#nav-tab-test-1').trigger('click');
+                    startTimer()
+                    //wait for tabs then go
+                }, 6000);
+            console.log('clear');
+        }
+        console.log(nextTab);
+        console.log('did something');
+    }
+    function startTimer() {
+        loopTabs = setInterval(moveItem, 2000);
+    }
+    $('#weatherWidget nav .nav-item').click( function () {
+        console.log('clicked');
+        $(this).animate({
+            opacity: 0.25,
+            left: "+=50",
+            height: "toggle"
+        }, 5000, function() {
+            // Animation complete.
+        });
+    });
+    // var loopTabs = setInterval(moveItem, 4000);
+    // setInterval(function(){ changeTabs(); }, 4000);
+    function getUrlParameter(sParam) {
+        var sPageURL = window.location.search.substring(1),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i,
+            zipCode = '56573';
+        console.log(sPageURL);
+        console.log(sURLVariables.length)
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            console.log('*****************************');
+            console.log(sParameterName);
+            if (sParameterName[0] === 'zip') {
+                if(sParameterName[1] === undefined ? false : decodeURIComponent(sParameterName[1])){
+                    zipCode = sParameterName[1];
+                }
+                // console.log(sParameterName[1]);
+            }
+        }
+
+        getGeo(zipCode);
+    };
+    getUrlParameter('zip');
+</script>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Drag/drop and save to firebase</title>
+    <style scoped>
+        table {
+            border: 1px solid #ccc;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: #ccc;
+        }
+
+        #list {
+            background-color: #fafafa;
+        }
+
+        td,
+        th {
+            border: 1px solid #888;
+            padding: .5em 1em;
+        }
+    </style>
+</head>
+
+<body>
+<table>
+    <thead>
+    <th>#</th>
+    <th>Data</th>
+    </thead>
+    <tbody id="list">
+    </tbody>
+
+
+    <div id="list2">
+    </div>
+</table>
+
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
+
+<script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+<script>
+    // Initialize Firebase
+    // var config = {
+    //     apiKey: "AIzaSyAO1Bukn02r4OmkAcPR0g-8kZmK163Ksmg",
+    //     authDomain: "holiday-party-photos.firebaseapp.com",
+    //     databaseURL: "https://holiday-party-photos.firebaseio.com",
+    //     projectId: "holiday-party-photos",
+    //     storageBucket: "holiday-party-photos.appspot.com",
+    //     messagingSenderId: "46125487608"
+    // };
+    // firebase.initializeApp(config);
+
+    var config = {
+        apiKey: "AIzaSyCSZSw2TAWB6ObN_Wtjq3krzdNxkT2Ir-g",
+        authDomain: "arvigweatherapp.firebaseapp.com",
+        databaseURL: "https://arvigweatherapp.firebaseio.com",
+        projectId: "arvigweatherapp",
+        storageBucket: "arvigweatherapp.appspot.com",
+        messagingSenderId: "482632098039"
+    };
+    firebase.initializeApp(config);
+
+    var rootRef = firebase
+        .database()
+        .ref()
+        .child('/events/')
+
+    rootRef
+        .orderByChild('order')
+        .once('value', function (snapshot) {
+            if (snapshot.exists()) {
+                snapshot.forEach(function (index) {
+                    var key = index.key
+                    var indexData = index.val()
+                    var zipCode = indexData.zip
+                    var initialIndex = indexData.order
+                    console.log(key,zipCode,initialIndex)
+
+                    var buildList = '<tr id="' + key + '"><th>' + initialIndex + '</th><td>' + zipCode + '</td></tr>'
+                    var buildList2 = '<div id="' + key + '" style="float:left;"><div>' + initialIndex + '</div><div>' + zipCode + '</div></div>'
+
+                    $('#list').append(buildList)
+                    $('#list2').append(buildList2)
+
+                })
+            }
+        })
+
+    $(function () {
+        $('#list').sortable({
+            cursor: 'grabbing',
+            opacity: 0.5,
+            update: function (e, ui) {
+                var sortList = $('#list').sortable('toArray')
+
+                console.log(sortList)
+                for (var i in sortList) {
+                console.log(sortList[i])
+                    var updateIndex = {
+                        order: parseInt(i)
+                    }
+
+                    rootRef
+                        .child(sortList[i]).update(updateIndex)
+                }
+
+            }
+        });
+    });
+    $(function () {
+        $('#list2').sortable({
+            cursor: 'grabbing',
+            opacity: 0.5,
+            update: function (e, ui) {
+                var sortList = $('#list').sortable('toArray')
+
+                console.log(sortList)
+                for (var i in sortList) {
+                console.log(sortList[i])
+                    var updateIndex = {
+                        order: parseInt(i)
+                    }
+
+                    rootRef
+                        .child(sortList[i]).update(updateIndex)
+                }
+
+            }
+        });
+    });
+</script>
+
+</body>
+
+</html>

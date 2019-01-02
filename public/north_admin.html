@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+          integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Heebo|Mukta+Mahee" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.0/jquery-ui.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/eventData.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/app.css">
+    <style>
+        #div1, #div2 {
+            float: left;
+            width: 100px;
+            height: 35px;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid black;
+        }
+        .transInput{
+            BACKGROUND-COLOR: transparent;
+            border: none;
+            color: #fff;
+        }
+        .line{
+            height: 100%;
+            width: 6px;
+            /*border: 4px solid #404040;*/
+            /*position: absolute;*/
+            background-color: #C1D63E;
+            border-bottom: 5px solid #5f5f5f;
+            /*position: relative;*/
+        }
+        .scrollBox{
+            overflow-x: scroll;
+            overflow-y: hidden;
+        }
+        .rotate {
+
+            /* Safari */
+            -webkit-transform: rotate(-45deg);
+
+            /* Firefox */
+            -moz-transform: rotate(-45deg);
+
+            /* IE */
+            -ms-transform: rotate(-45deg);
+
+            /* Opera */
+            -o-transform: rotate(-45deg);
+
+            /* Internet Explorer */
+            filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+
+        }
+        #list{
+            /*border: 1px solid #fff;*/
+            background-color: #5f5f5f;
+            overflow-y: auto;
+            /*max-height: 55%;*/
+            height: 800px;
+        }
+        #list2{
+            border: 2px solid #C1D63E;
+            /*position: fixed;*/
+            /*right: 15px;*/
+            /*width: 350px;*/
+            /*!*height: 100%;*!*/
+            overflow-y: auto;
+            /*max-height: 55%;*/
+            height: 800px;
+        }
+        .sideBar{
+            /*border: 1px solid #fff;*/
+            /*position: fixed;*/
+            /*right: 15px;*/
+            /*width: 350px;*/
+            /*height: 100%;*/
+            /*overflow-y: auto;*/
+            /*max-height: 600px;*/
+        }
+
+        .scrollbar-primary::-webkit-scrollbar {
+            width: 12px;
+            height: 5px;
+            background-color: #404040; }
+
+        .scrollbar-primary::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+            background-color: #5f5f5f; }
+        .scrollbar-inverse::-webkit-scrollbar {
+            width: 12px;
+            height: 5px;
+            background-color: #5f5f5f; }
+
+        .scrollbar-inverse::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+            background-color: #404040;
+            border: 3px solid #5f5f5f;}
+        .ui-sortable .handle:hover{
+            cursor: grab;
+        }
+        .header{
+            border-bottom: 2px solid #C1D63E;
+        }
+        .highlight{
+            color: #C1D63E;
+            font-weight: 600;
+            /*text-shadow: 1px 1px #fff;*/
+        }
+        .fas:hover, .far:hover{
+            cursor: pointer;
+        }
+        .ui-sortable .handle .fas:hover, .ui-sortable .handle .far:hover{
+            cursor: grab;
+        }
+        .previewPane {
+            width: 804px;
+            height: 544px;
+            margin: auto;
+        }
+        #list2 .sortElement {
+            /*border-bottom: 1px solid #5f5f5f;*/
+            /*margin-bottom: 10px;*/
+            padding-bottom: 10px;
+        }
+        .adminPanel i.fas, .adminPanel i.far{
+            font-size: 20px;
+        }
+    </style>
+    <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCSZSw2TAWB6ObN_Wtjq3krzdNxkT2Ir-g",
+            authDomain: "arvigweatherapp.firebaseapp.com",
+            databaseURL: "https://arvigweatherapp.firebaseio.com",
+            projectId: "arvigweatherapp",
+            storageBucket: "arvigweatherapp.appspot.com",
+            messagingSenderId: "482632098039"
+        };
+        firebase.initializeApp(config);
+
+    </script>
+</head>
+<body class="adminPanel" style="background-color: #404040">
+    <div class="fixed-top col-12 row m-0 header bg-arvig-grey">
+        <div class="col-10">
+            <a href="index.html">
+                <h1 class="text-arvig-green mt-2" style="font-size: 35px;">Weather App Wizard</h1>
+            </a>
+        </div>
+        <div class="col-2">
+            <a id="addEvent" class="btn bg-arvig-green text-white float-right mt-2" data-toggle="modal" data-target="#addEventModal" data-type="Add">Add Event</a>
+        </div>
+    </div>
+<div class="container-fluid text-white" style="margin-top: 80px;">
+    <div class="col-12 row">
+        <div class="col-sm-12 col-md-12 col-lg-8 sideBar">
+            <div class="col-12 previewPane">
+                <iframe id="previewIframe" src="" style="width: 100%"; height="100%"></iframe>
+            </div>
+            <div class="col-12">
+                <h3>Un-Scheduled Events</h3>
+                <div id="list2" class="col-12 pl-3 pr-3 scrollbar-primary d-none">
+                </div>
+            </div>
+            <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addEventModal">-->
+                <!--Launch demo modal-->
+            <!--</button>-->
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-4">
+            <h3 class="pt-3">Scheduled Events</h3>
+            <div id="list" class="col-12 pt-4 p-3 float-right scrollbar-inverse">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Add/Edit event modal-->
+<div class="modal fade" id="addEventModal" tabindex="-1" role="dialog" aria-labelledby="addEventModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add Event</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="live.html" method="get" id="wizardForm">
+                <div class="modal-body">
+                    <div id="formBlock">
+                        <div class="form-group" id="newEvent">
+                            <input type="hidden" name="id"/>
+                            Name
+                            <input class="form-control col-12" type="text" name="name"/>
+                            Type
+                            <select class="form-control col-12" name="type">
+                                <option value="zip">Zip</option>
+                                <option value="ad">Ad (slide)</option>
+                                <option value="ad-video">Ad (video)</option>
+                            </select>
+                            Loop Length
+                            <select class="form-control col-12" type="number" name="loopLength">
+                                <option value="15">15 secs</option>
+                                <option value="30">30 secs</option>
+                                <option value="45">45 sec</option>
+                                <option value="60">1 min</option>
+                                <option value="120">2 mins</option>
+                                <option value="180">3 mins</option>
+                                <option value="240">4 mins</option>
+                                <option value="300">5 mins</option>
+                                <option value="360">6 mins</option>
+                            </select>
+                            <div class="form-group d-none" id="slideInput">
+                                Ad Link
+                                <!--<input class="form-control col-12" type="text" name="slide"/>-->
+                                <select class="form-control col-12" type="text" name="slide">
+                                    <option value="">...</option>
+                                </select>
+                            </div>
+                            <div class="form-group d-none" id="videoInput">
+                                Ad Link
+                                <!--<input class="form-control col-12" type="text" name="slide"/>-->
+                                <select class="form-control col-12" type="text" name="slide">
+                                    <option value="">...</option>
+                                </select>
+                            </div>
+                            <div class="form-group" id="zipInput">
+                                Zip
+                                <input class="form-control col-12" type="text" name="zip"/>
+                            </div>
+                            <input id="loopLengthOverride" type="hidden" name="loopLength" disabled="disabled"/>
+                            <!--<input class="form-control col-4" id="order" type="number" name="order"/>-->
+                        </div>
+                        <span class="col-1"></span>
+                        <!--<a id="removeEvent" class="col-5 btn btn-danger" onclick="$('#addEvent').removeClass('d-none'); $('#formBlock').addClass('d-none');">Close</a>-->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <input id="submitBtn" class="col-5 btn btn-primary" type="submit">
+                    <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--Delete event modal-->
+<div class="modal fade" id="deleteEventModal" tabindex="-1" role="dialog" aria-labelledby="deleteEventModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">delete Event</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="deleteEvent">
+                <div class="modal-body">
+                    Are you sure you want to delete this event?
+                    <input type="hidden" name="id"/>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                    <input id="submitBtn" class="col-5 btn btn-danger" type="submit" value="YES">
+                    <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+
+    $(document).ready(function () {
+        resizeSchedule();
+        getSlides();
+        getVideos();
+
+    });
+    var rootRef = firebase
+        .database()
+        .ref()
+        .child('/events/north/');
+
+    rootRef
+        .orderByChild('order')
+        // .startAt(-1)
+        .on('value', function (snapshot) {
+            if (snapshot.exists()) {
+                    $('#list').html('');
+                    $('#list2').html('');
+                    var odds = 0;
+                snapshot.forEach(function (index) {
+                    var key = index.key
+                    var indexData = index.val()
+                    var zipCode = indexData.zip
+                    var initialIndex = indexData.order
+                    var interval = indexData.loopLength
+                    var url = indexData.url
+                    var order = indexData.order
+                    var type = indexData.type
+                    var name = indexData.name
+                    console.log(key,zipCode,initialIndex)
+
+                    // var buildList = '<tr id="' + key + '"><th>' + initialIndex + '</th><td>' + zipCode + '</td></tr>'
+                    // var buildList2 = '<div id="' + key + '" style="float:left;"><div>' + initialIndex + '</div><div>' + zipCode + '</div></div>'
+                    var span = Math.round(interval / 15);
+                    var icon = '<i class="fas fa-cloud-sun" style="font-size: 50px"></i>';
+                    var sm_icon = '<i class="fas fa-cloud-sun"></i>';
+                    if(type == 'ad'){
+                        icon = '<i class="fas fa-ad" style="font-size: 50px"></i>';
+                        sm_icon = '<i class="fas fa-ad"></i>';
+                    } else if(type == 'ad-video'){
+                        icon = '<i class="fas fa-video" style="font-size: 50px"></i>';
+                        sm_icon = '<i class="fas fa-video"></i>';
+                    }
+                    var bgColor = '';
+                    if (odds % 2 === 0) {
+                        bgColor = 'style="background-color: #5f5f5f;"';
+                    }
+                        console.log('_____________ORDER_________________');
+                        console.log(order);
+                    if((!order && order !== 0 ) || (order < -1)){
+                        console.log('no order');
+                        var buildList = '<div class="text-left row" id="' + key + '">' +
+                            // '<div class="">'+order+'</div>' +
+                            // '<div class="line"></div>' +
+                            // '<div class="col-2 pt-2">' +
+                            // sm_icon +
+                            // '</div>' +
+                            // '<div class="col-9 pt-2">' +
+                            '<div class="col-6 pl-3">' + sm_icon + ' ' + name + '</div>' +
+                            '<div class="col-6 pl-3">' +
+                            '<i class="far fa-copy pr-2 copyEvent" data-event-id="'+key+'"></i>' +
+                            '<i class="far fa-eye pr-2 previewBtn" data-src="live.html?region=north&id='+key+'"></i>' +
+                            '<i class="far fa-edit pr-2" data-toggle="modal" data-target="#addEventModal"  data-type="Edit" data-event-id="'+key+'"></i>' +
+                            '<i class="far fa-trash-alt pr-2" data-toggle="modal" data-target="#deleteEventModal"  data-type="Edit" data-event-id="'+key+'"></i>' +
+                            '<div class="btn p-0 addToSchedule text-arvig-green" data-target="'+key+'"><i class="fas fa-arrow-alt-circle-right"></i></div>' +
+                            // '<div class="pl-3"> (' + interval + ') </div>' +
+
+                            '</div></div>';
+                        var buildList = '<div class="sortElement text-left row" id="' + key + '" '+bgColor+'>' +
+                            '<div class="col-2 pt-2 text-center">' +
+                            icon +
+                            '</div>' +
+                            '<div class="col-6 pt-2">' +
+                            '<div class="pl-3">Name: ' + name + '</div>' +
+                            '<div class="pl-3">Length: ' + interval + '</div>' +
+                            // '<div class="pl-3 btn removeFromSchedule" data-target="'+key+'">remove</div>' +
+                            '</div>' +
+                            '<div class="col-3 pt-2">' +
+                            '<i class="pr-2 far fa-copy copyEvent" data-event-id="'+key+'"></i>' +
+                            '<i class="pr-2 far fa-eye previewBtn" data-src="live.html?region=north&id='+key+'"></i>' +
+                            '<i class="pr-2 far fa-edit" data-toggle="modal" data-target="#addEventModal"  data-type="Edit" data-event-id="'+key+'"></i>' +
+                            '<i class="pr-2 far fa-trash-alt pr-2" data-toggle="modal" data-target="#deleteEventModal"  data-type="Edit" data-event-id="'+key+'"></i>' +
+                            '<i class="pr-2 far fa-arrow-alt-circle-right addToSchedule" data-target="'+key+'"></i>' +
+                            '</div>' +
+                            // '<div class="pl-3"> (' + interval + ') </div>' +
+
+                            '</div>';
+                        odds++;
+                    } else {
+
+                        var buildList2 = '<div class="sortElement text-left row" id="' + key + '" style="height: '+interval * 2 +'px; min-height: 120px;">' +
+                            '<div class="col-2 col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 text-center order">' +
+                            '<i class="col-12 fas fa-sort-up moveUp"></i>' +
+                            '<div class="col-12">'+order+'</div>' +
+                                '<i class="col-12 far fa-arrow-alt-circle-left removeFromSchedule text-danger" data-target="'+key+'"></i>' +
+                            '<i class="col-12 fas fa-sort-down moveDown"></i>' +
+                            '</div>' +
+                            '<div class="line handle" style="height: '+interval * 2 +'px;"></div>' +
+                            '<div class="col-2 pt-2 handle">' +
+                            icon +
+                            '</div>' +
+                            '<div class="col-6 pt-2">' +
+                                '<div class="pl-3 handle">Name: ' + name + '</div>' +
+                                '<div class="pl-3 handle">Length: ' + interval + '</div>' +
+                            // '<div class="pl-3 btn removeFromSchedule" data-target="'+key+'">remove</div>' +
+                            '</div>' +
+                            '<div class="col-1 pt-2">' +
+                                '<i class="col-12 far fa-copy copyEvent" data-event-id="'+key+'"></i>' +
+                                '<i class="col-12 far fa-eye previewBtn" data-src="live.html?region=north&id='+key+'"></i>' +
+                                '<i class="col-12 far fa-edit" data-toggle="modal" data-target="#addEventModal"  data-type="Edit" data-event-id="'+key+'"></i>' +
+                            '</div>' +
+                             // '<div class="pl-3"> (' + interval + ') </div>' +
+
+                                '</div>';
+                    }
+
+                    // $('#list').append(buildList)
+                    // $('#list').height($('#list').height() + (interval *2));
+                    // $('#list2').width($('#list').width() + (interval *2));
+                    $('#list').append(buildList2)
+                    $('#list2').append(buildList)
+
+                });
+                console.log($('#list2').children().length);
+                if(!$('#list2').children().length){
+                    $('#list2').addClass('d-none');
+                } else {
+                    $('#list2').removeClass('d-none');
+                }
+                $('.order').addClass('highlight');
+                setTimeout(function(){
+                    $('.order').removeClass('highlight');
+                    // $(this).removeClass('highlight');
+                }, 1000);
+            }
+        });
+    function updateOrder(){
+        var sortList = $('#list').sortable('toArray')
+
+        console.log(sortList)
+        for (var i in sortList) {
+            console.log(sortList[i])
+            var updateIndex = {
+                order: parseInt(i)
+            }
+
+            rootRef
+                .child(sortList[i]).update(updateIndex)
+        }
+    }
+    $(function () {
+        $('#list').sortable({
+            cursor: 'grabbing',
+            handle: ".handle",
+            opacity: 0.5,
+            update: function (e, ui) {
+                setTimeout(function () {
+                    updateOrder();
+                }, 500);
+
+            }
+        });
+    });
+
+
+    $(document).on('submit', '#wizardForm', function (e) {
+    e.preventDefault();
+    // alert('sdfsdff');
+    console.log($( this ).serializeArray());
+    // console.log($( this ).serialize());
+    var formattedData = [];
+    var objData = {};
+    $.each($( this ).serializeArray(), function (key, value) {
+            objData[value.name] = value.value;
+            // objData.push({[value.name]:[value.value]});
+            formattedData[value.name] = value.value;
+    });
+    console.log(objData);
+    // formattedData['url'] = 'live.html?region=north&' + $( this ).serialize();
+    if(formattedData['id']){
+        // var updateData = [];
+        // updateData['/events/north/' + formattedData['id']] = objData;
+        firebase.database().ref('/events/north/' + formattedData['id']).update(objData);
+    } else {
+        var newRef = firebase.database().ref('events/north').push();
+        var key = newRef.key;
+        formattedData['url'] = 'live.html?region=north&id=' + key;
+        newRef.set(formattedData);
+    }
+    // $(this).addClass('d-none');
+    // $('#addEvent').removeClass('d-none');
+    $(this).find("input[type=text], textarea").val("");
+    $('#addEventModal').modal('hide');
+});
+    $(document).on('submit', '#deleteEvent', function (e) {
+    e.preventDefault();
+    var eventId;
+    console.log($( this ).serializeArray());
+        $.each($( this ).serializeArray(), function (key, value) {
+            if(value.name == 'id'){
+                eventId = value.value;
+            }
+        });
+
+    // var objData = $( this ).serializeArray();
+    if(eventId){
+        console.log(eventId);
+        firebase.database().ref('events/north/' + eventId).remove();
+    } else {
+        console.log('no id');
+    }
+    $('#deleteEventModal').modal('hide');
+});
+
+
+    $(document).on('click', '.moveUp', function () {
+        $(this).closest('.sortElement').insertBefore($(this).closest('.sortElement').prev());
+        setTimeout(function () {
+            updateOrder();
+        }, 500);
+    });
+    $(document).on('click', '.moveDown', function () {
+        $(this).closest('.sortElement').insertAfter($(this).closest('.sortElement').next());
+        setTimeout(function () {
+            updateOrder();
+        }, 500);
+    });
+    $(document).on('click', '.addToSchedule', function () {
+        var id = $(this).data('target');
+        console.log(id);
+        firebase.database().ref('events/north/' + id).update({'order' : -1});
+        setTimeout(function () {
+            updateOrder();
+        }, 500);
+    });
+    // $(document).on('change', '.orderInput', function () {
+    //     var id = $(this).closest('.sortElement').attr('id');
+    //     var val = $(this).val();
+    //     console.log(id);
+    //     firebase.database().ref('events/north/' + id).update({'order' : parsInt($(this).val())});
+    //     setTimeout(function () {
+    //         updateOrder();
+    //     }, 500);
+    // });
+    $(document).on('click', '.removeFromSchedule', function () {
+        var id = $(this).data('target');
+        console.log(id);
+        firebase.database().ref('events/north/' + id).update({'order' : -2});
+        updateOrder();
+    });
+    $(document).on('click', '.previewBtn', function () {
+        // var iFrame = $('#borderlessFrame');
+        // iFrame.load('http://theurltoload.com')
+        $('#previewIframe').attr('src', $(this).data('src'));
+        console.log($(this).data('src'));
+        // firebase.database().ref('events/north/' + id).update({'order' : ''});
+        // updateOrder();
+    });
+
+    // $(document).on('change', '.transInput', function (e) {
+    //     var id = $(this).closest('.eventContainter').data('target.id');
+    //     console.log(id);
+    //     // $(this).closest('.eventContainter').data($(this).attr('name'), $(this).val());
+    //     var formData = {[$(this).attr('name')]:$(this).val()};
+    //     firebase.database().ref('events/north/' + id).update(formData);
+    // });
+    $(document).on('change', '#wizardForm select[name="type"]', function (e) {
+        // var id = $(this).closest('.eventContainter').data('target.id');
+        console.log($(this).val());
+        if($(this).val() == 'zip'){
+            // $('label[for="slideInput"]').addClass('d-none');
+            $('#videoInput').addClass('d-none');
+            $('#slideInput').addClass('d-none');
+            $('#zipInput').removeClass('d-none');
+            // $(this).closest('form').find('input[name="zip"]').removeClass('d-none');
+        } else if($(this).val() == 'ad'){
+            // getSlides();
+            // $('label[for="slideInput"]').addClass('d-none');
+            $('#slideInput').removeClass('d-none');
+            $('#zipInput').addClass('d-none');
+            $('#videoInput').addClass('d-none');
+            // $(this).closest('form').find('input[name="zip"]').removeClass('d-none');
+        } else if($(this).val() == 'ad-video'){
+            // getVideos();
+            $('#videoInput').removeClass('d-none');
+            $('#slideInput').addClass('d-none');
+            $('#zipInput').addClass('d-none');
+            // $(this).closest('form').find('input[name="zip"]').addClass('d-none');
+            // $(this).closest('form').find('input[name="slide"]').removeClass('d-none');
+
+        }
+        // console.log(id);
+
+    });
+
+    $(document).on('change', '#wizardForm select[name="slide"]', function (e) {
+        // var id = $(this).closest('.eventContainter').data('target.id');
+        console.log('____________________CHANGED____________________');
+        console.log($(this).val());
+        console.log($(this).children('option:selected').data());
+        var adLength = $(this).children('option:selected').data('vLength');
+        if(adLength && adLength > 0){
+            adLength = adLength / 1000;
+            $('#loopLengthOverride').attr('disabled', false);
+            $('#loopLengthOverride').val(adLength);
+        } else {
+            $('#loopLengthOverride').attr('disabled', true);
+        }
+
+    });
+
+    $('#addEventModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var eventId = button.data('eventId') // Extract info from data-* attributes
+        var type = button.data('type') // Extract info from data-* attributes
+        var eventData = {};
+        var modal = $(this);
+        modal.find("input[type=text], textarea").val("");
+        modal.find('.modal-title').text(type + ' Event')
+
+        if(eventId){
+
+
+            firebase
+                .database()
+                .ref()
+                .child('/events/north/' + eventId)
+                .on('value', function (snapshot) {
+                    eventData = snapshot.val();
+                });
+
+                console.log(eventData);
+                modal.find('.modal-body input[name="id"]').val(eventId);
+                modal.find('.modal-body input[name="name"]').val(eventData.name);
+                modal.find('.modal-body input[name="zip"]').val(eventData.zip);
+                modal.find('.modal-body select[name="loopLength"]').val(eventData.loopLength);
+                modal.find('.modal-body select[name="type"]').val(eventData.type);
+                modal.find('.modal-body select[name="slide"]').val(eventData.slide);
+                if(eventData.type == 'zip'){
+                    $('#videoInput').addClass('d-none');
+                    $('#slideInput').addClass('d-none');
+                    $('#zipInput').removeClass('d-none');
+                } else if(eventData.type == 'ad') {
+                    $('#slideInput').removeClass('d-none');
+                    $('#slideInput').find('select[name="slide"]').prop('disabled', false);
+                    $('#zipInput').addClass('d-none');
+                    $('#videoInput').addClass('d-none');
+                    $('#videoInput').find('select[name="slide"]').prop('disabled', true)
+                } else if(eventData.type == 'ad-video') {
+                    $('#videoInput').removeClass('d-none');
+                    $('#videoInput').find('select[name="slide"]').prop('disabled', false)
+                    $('#zipInput').addClass('d-none');
+                    $('#slideInput').addClass('d-none');
+                    $('#slideInput').find('select[name="slide"]').prop('disabled', true)
+                }
+        } else {
+            modal.find('.modal-body input[name="id"]').val('');
+            modal.find('.modal-body input[name="name"]').val('');
+            modal.find('.modal-body input[name="zip"]').val('');
+            modal.find('.modal-body select[name="loopLength"]').val('');
+            modal.find('.modal-body select[name="type"]').val('');
+            modal.find('.modal-body select[name="slide"]').val('');
+
+        }
+    });
+
+    $('#deleteEventModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); // Button that triggered the modal
+        var eventId = button.data('eventId'); // Extract info from data-* attributes
+        var modal = $(this);
+        modal.find("input[type=hidden]").val("");
+        if(eventId){
+            console.log(eventId);
+            modal.find('.modal-body input[name="id"]').val(eventId);
+            console.log(modal.find('.modal-body input[name="id"]').val());
+        }
+    });
+
+    function resizeSchedule() {
+        var viewPortHeight = $( window ).height();
+        var headerHeight = $('.header').height();
+        console.log('-------------------------------');
+        console.log(viewPortHeight);
+        console.log(headerHeight);
+        console.log(viewPortHeight - headerHeight - 54);
+        var newHeight = viewPortHeight - headerHeight - 174;
+        $('#list').height(newHeight + 44);
+        $('#list2').height(newHeight * .30);
+        var newWidth = (newHeight * .70) * 1.33335;
+        // var previewHeight = (960 / 1280) * (newHeight / 2);
+        $('.previewPane').height(newHeight * .70);
+        $('.previewPane').width(newWidth);
+        console.log('-------------------------------');
+
+    }
+
+    $(document).on('click', '.copyEvent', function () {
+        var eventId = $(this).data('eventId');
+        var srcData = {};
+        if(eventId){
+
+            firebase
+                .database()
+                .ref()
+                .child('/events/north/' + eventId)
+                .orderByChild('order')
+                .once('value', function (snapshot) {
+                    // console.log(snapshot.val());
+                    srcData = snapshot.val();
+
+                });
+        } else {
+            console.log('no id');
+
+        }
+        delete srcData.id;
+        // console.log(srcData);
+        firebase.database().ref('events/north').push(srcData);
+        setTimeout(function () {
+            updateOrder();
+        }, 500);
+    });
+    function getSlides() {
+        firebase
+            .database()
+            .ref()
+            .child('/slides/')
+            .orderByChild('name')
+            .on('value', function (snapshot) {
+                if (snapshot.exists()) {
+                    var options = '';
+                    options += '<option value="">...</option>';
+                    snapshot.forEach(function (index) {
+                        console.log('____________SLIDES_____________');
+                        console.log(index.val());
+                        options += '<option value="'+index.val().embedLink+'">'+index.val().name+'</option>';
+                        console.log('____________SLIDES_____________');
+                    });
+                    $('#slideInput').find('select').html(options);
+                }
+            });
+    }
+    function getVideos() {
+        firebase
+            .database()
+            .ref()
+            .child('/videos/')
+            .orderByChild('name')
+            .on('value', function (snapshot) {
+                if (snapshot.exists()) {
+                    var options = '';
+                    options += '<option value="">...</option>';
+                    snapshot.forEach(function (index) {
+                        console.log('____________SLIDES_____________');
+                        console.log(index.val());
+                        options += '<option value="'+index.val().embedLink+'" data-v-length="'+index.val().length+'">'+index.val().name+'</option>';
+                        console.log('____________SLIDES_____________');
+                    });
+                    $('#videoInput').find('select').html(options);
+                }
+            });
+    }
+
+    // let eventData = new EventData("56573");
+</script>
+</html>

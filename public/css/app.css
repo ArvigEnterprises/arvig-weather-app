@@ -1,0 +1,153 @@
+body{font-family: 'Mukta Mahee', sans-serif}
+h1{font-family: 'Fjalla One', sans-serif}
+h2, h3, h4, h5{font-family: 'Mukta Mahee', sans-serif}
+h1{font-size: 3vw;}
+h2{font-size: 2.2vw;}
+h3{font-size: 1.5vw;}
+p{font-family: 'Heebo', sans-serif;}
+.seven-cols {
+    width: 14.285714285714285714285714285714%;
+}
+.Fjalla{font-family: 'Fjalla One', sans-serif}
+.Mukta{font-family: 'Mukta Mahee', sans-serif}
+.Heebo{font-family: 'Heebo', sans-serif}
+
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+    color: #fff;
+    background-color: transparent;
+    border-color: #C1D63E #C1D63E #fff;
+    border-bottom: 1px solid #343a40;
+    transition: border 1s linear;
+
+}
+
+.nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
+    border-color: #C1D63E #C1D63E #C1D63E;
+}
+.nav-tabs .nav-link, .nav-tabs .nav-link {
+    transition: border 1s linear;
+}
+.nav-tabs {
+    border-bottom: 1px solid #C1D63E;
+}
+.headerTabs .nav-tabs {
+    border-bottom: none;
+}
+.headerTabs .nav-tabs .nav-link.active, .headerTabs .nav-tabs .nav-item.show .nav-link {
+    color: #fff;
+    border: none;
+
+}
+.headerTabs .nav-tabs .nav-link:hover, .headerTabs .nav-tabs .nav-link:focus {
+    border: none;
+}
+
+
+#nav-tab-testContent .forecastTabContent {
+    border-bottom: none;
+}
+#nav-tabContent .forecastTabContent {
+    font-size: 2vw;
+    border-bottom: 1px solid #C1D63E;
+    padding: 40px 20px;
+}
+
+.forecastTabContentTitle {
+    font-size: 4vw;
+}
+
+.forecastTabContent i.sm {
+    font-size: 1vw;
+}
+
+.forecastTabContent i.md {
+    font-size: 2vw;
+}
+
+.forecastTabContent i.lg {
+    font-size: 3vw;
+}
+i.fas, i.far{
+    color:#C1D63E;
+}
+.text-arvig-green{
+    color:#C1D63E;
+}
+.text-view-1{
+    font-size: 0.5vw;
+}
+.text-view-2{
+    font-size: 1.5vw;
+}
+.text-view-3{
+    font-size: 2.5vw;
+}
+.text-view-4{
+    font-size: 3.5vw;
+}
+.text-view-5{
+    font-size: 4.5vw;
+}
+.text-view-6{
+    font-size: 5.5vw;
+}
+.text-view-7{
+    font-size: 6.5vw;
+}
+.text-view-8{
+    font-size: 7.5vw;
+}
+.text-view-9{
+    font-size: 8.5vw;
+}
+.text-view-10{
+    font-size: 9.5vw;
+}
+.bg-arvig-green{
+    background-color:#C1D63E;
+}
+.bg-arvig-grey{
+    background-color: #404040;
+}
+/*.scrollbar*/
+/*{*/
+/*margin-left: 30px;*/
+/*float: left;*/
+/*height: 300px;*/
+/*width: 65px;*/
+/*overflow-y: scroll;*/
+/*margin-bottom: 25px;*/
+/*}*/
+/*.scrollbar::-webkit-scrollbar*/
+/*{*/
+/*width: 12px;*/
+/*background-color: #F5F5F5;*/
+/*}*/
+
+.scrollbar::-webkit-scrollbar-track
+{
+    background-color: #404040;
+}
+
+.scrollbar::-webkit-scrollbar
+{
+    height: 8px;
+    background-color: #404040;
+}
+
+.scrollbar::-webkit-scrollbar-thumb
+{
+    background-color: #5d5d5d;
+    border-radius: 10px;
+}
+.center{
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}
+
+#radar-app.dark-theme input[type=button], #radar-app.dark-theme input[type=number], #radar-app.dark-theme select, #radar-app.dark-theme .leaflet-control-zoom>a {
+    background-color: #444;
+    color: white;
+    font-size: 50px;
+}

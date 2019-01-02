@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+          integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Heebo|Mukta+Mahee" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.0/jquery-ui.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
+    <script src="js/bootstrap.js"></script>
+    <style>
+        body{font-family: 'Mukta Mahee', sans-serif}
+        h1{font-family: 'Fjalla One', sans-serif}
+        h2, h3, h4, h5{font-family: 'Mukta Mahee', sans-serif}
+        h1{font-size: 3vw;}
+        h2{font-size: 2.2vw;}
+        h3{font-size: 1.5vw;}
+        p{font-family: 'Heebo', sans-serif;}
+        .seven-cols {
+            width: 14.285714285714285714285714285714%;
+        }
+        .Fjalla{font-family: 'Fjalla One', sans-serif}
+        .Mukta{font-family: 'Mukta Mahee', sans-serif}
+        .Heebo{font-family: 'Heebo', sans-serif}
+
+        .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+            color: #fff;
+            background-color: transparent;
+            border-color: #C1D63E #C1D63E #fff;
+            border-bottom: 1px solid #343a40;
+
+        }
+        .nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
+            border-color: #C1D63E #C1D63E #C1D63E;
+        }
+        .nav-tabs {
+            border-bottom: 1px solid #C1D63E;
+        }
+
+        .forecastTabContent {
+            font-size: 2vw;
+            border-bottom: 1px solid #C1D63E;
+            padding: 40px 20px;
+        }
+
+        .forecastTabContentTitle {
+            font-size: 4vw;
+        }
+
+        .forecastTabContent i.sm {
+            font-size: 1vw;
+        }
+
+        .forecastTabContent i.md {
+            font-size: 2vw;
+        }
+
+        .forecastTabContent i.lg {
+            font-size: 3vw;
+        }
+        i.fas{
+            color:#C1D63E;
+        }
+        .text-arvig-green{
+            color:#C1D63E;
+        }
+        .text-view-1{
+            font-size: 0.5vw;
+        }
+        .text-view-2{
+            font-size: 1.5vw;
+        }
+        .text-view-3{
+            font-size: 2.5vw;
+        }
+        .text-view-4{
+            font-size: 3.5vw;
+        }
+        .text-view-5{
+            font-size: 4.5vw;
+        }
+        .text-view-6{
+            font-size: 5.5vw;
+        }
+        .text-view-7{
+            font-size: 6.5vw;
+        }
+        .text-view-8{
+            font-size: 7.5vw;
+        }
+        .text-view-9{
+            font-size: 8.5vw;
+        }
+        .text-view-10{
+            font-size: 9.5vw;
+        }
+        .bg-arvig-green{
+            background-color:#C1D63E;
+        }
+        /*.scrollbar*/
+        /*{*/
+            /*margin-left: 30px;*/
+            /*float: left;*/
+            /*height: 300px;*/
+            /*width: 65px;*/
+            /*overflow-y: scroll;*/
+            /*margin-bottom: 25px;*/
+        /*}*/
+        /*.scrollbar::-webkit-scrollbar*/
+        /*{*/
+            /*width: 12px;*/
+            /*background-color: #F5F5F5;*/
+        /*}*/
+
+        .scrollbar::-webkit-scrollbar-track
+        {
+            background-color: #404040;
+        }
+
+        .scrollbar::-webkit-scrollbar
+        {
+            height: 8px;
+            background-color: #404040;
+        }
+
+        .scrollbar::-webkit-scrollbar-thumb
+        {
+            background-color: #5d5d5d;
+            border-radius: 10px;
+        }
+
+        /*@media (min-width: 768px){*/
+        /*.seven-cols  {*/
+        /*width: 100%;*/
+        /*}*/
+        /*}*/
+
+        /*@media (min-width: 992px) {*/
+        /*.seven-cols {*/
+        /*width: 14.285714285714285714285714285714%;*/
+        /*}*/
+        /*}*/
+
+        /*@media (min-width: 1200px) {*/
+        /*.seven-cols {*/
+        /*width: 14.285714285714285714285714285714%;*/
+        /*}*/
+        /*}*/
+    </style>
+</head>
+<body style="background-color: #404040">
+    <div class="col-12 bg-transparent text-white">
+
+            <div class="row">
+                <div class="col-6">
+                    <input type="hidden" id="lonInput" name="lon"/>
+                    <input type="hidden" id="latInput" name="lat"/>
+                    <input class="" id="searchValue" type="text" name="search"/>
+                    <i id="searchButton" class="fas fa-search"></i>
+                    <!--<h1><i class="fas fa-search"></i> Sebeka, MN</h1>-->
+                </div>
+                <div class="col-6">
+                    <img class="float-right" src="img/R8_18160_Arvig_logo_RGB_Reversed.png" width="200" style="margin: 20px;"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2 text-right">
+                    <h1><span class="text-view-9" style="color: #fff;">37&#176;</span></h1>
+                </div>
+                <div class="col-2">
+                    <i class="fas fa-cloud-sun text-view-9"></i>
+                </div>
+                <div class="col-8">
+                    <div class="row text-center">
+                        <div class="col-12 text-center  text-view-3">Partially cloudy</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 Fjalla text-view-2"><i class="fas fa-thermometer-full"></i> H 40&#176;</div>
+                        <div class="col-2 Fjalla text-view-2"><i class="fas fa-wind"></i> W 5 <i class="fas fa-long-arrow-alt-down sm"></i></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 Fjalla text-view-2"><i class="fas fa-thermometer-empty"></i> L 10&#176;</div>
+                        <div class="col-2 Fjalla text-view-2"><i class="fas fa-tint"></i> P 0%</div>
+                    </div>
+                </div>
+            </div>
+        <div class="" id="weatherWidget">
+            <div>
+                <nav>
+                    <div class="nav nav-tabs text-center clearData text-view-3" id="nav-tab" role="tablist">
+                        <!--<div class="nav-item nav-link seven-cols pr-0 pl-0  active" id="nav-1-tab" data-toggle="tab"-->
+                             <!--href="#nav-1" role="tab" aria-controls="nav-1" aria-selected="true">-->
+                            <!--<div class="col-12 pl-0 pr-0">-->
+                                <!--<h1>SUN</h1>-->
+                            <!--</div>-->
+                            <!--<div class="col-12 pl-0 pr-0">-->
+                                <!--<i class="fas fa-cloud"></i>-->
+                            <!--</div>-->
+                            <!--<div class="col-12 pl-0 pr-0">-->
+                                <!--31<span>&#176;</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="nav-item nav-link seven-cols pr-0 pl-0 " id="nav-2-tab" data-toggle="tab" href="#nav-2"-->
+                             <!--role="tab" aria-controls="nav-2" aria-selected="false">-->
+                            <!--<div class="col-12 pl-0 pr-0">-->
+                                <!--<h1>MON</h1>-->
+                            <!--</div>-->
+                            <!--<div class="col-12 pl-0 pr-0">-->
+                                <!--<i class="fas fa-cloud-rain"></i>-->
+                            <!--</div>-->
+                            <!--<div class="col-12 pl-0 pr-0">-->
+                                <!--31<span>&#176;</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="nav-item nav-link seven-cols pr-0 pl-0 " id="nav-3-tab" data-toggle="tab" href="#nav-3"-->
+                             <!--role="tab" aria-controls="nav-3" aria-selected="false">-->
+                            <!--<div class="col-12 pl-0 pr-0">-->
+                                <!--<h1>TUE</h1>-->
+                            <!--</div>-->
+                            <!--<div class="col-12 pl-0 pr-0">-->
+                                <!--<i class="fas fa-cloud-showers-heavy"></i>-->
+                            <!--</div>-->
+                            <!--<div class="col-12 pl-0 pr-0">-->
+                                <!--31<span>&#176;</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="nav-item nav-link seven-cols pr-0 pl-0 " id="nav-4-tab" data-toggle="tab" href="#nav-4"-->
+                             <!--role="tab" aria-controls="nav-4" aria-selected="false">-->
+                            <!--<div class="col-12 pl-0 pr-0">-->
+                                <!--<h1>WED</h1>-->
+                            <!--</div>-->
+                            <!--<div class="col-12 pl-0 pr-0">-->
+                                <!--<i class="fas fa-cloud-sun"></i>-->
+                            <!--</div>-->
+                            <!--<div class="col-12 pl-0 pr-0">-->
+                                <!--31<span>&#176;</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="nav-item nav-link seven-cols pr-0 pl-0 " id="nav-5-tab" data-toggle="tab" href="#nav-5"-->
+                             <!--role="tab" aria-controls="nav-5" aria-selected="false">-->
+                            <!--<div class="col-12 pl-0 pr-0">-->
+                                <!--<h1>THUR</h1>-->
+                            <!--</div>-->
+                            <!--<div class="col-12 pl-0 pr-0">-->
+                                <!--<i class="fas fa-cloud-sun"></i>-->
+                            <!--</div>-->
+                            <!--<div class="col-12 pl-0 pr-0">-->
+                                <!--31<span>&#176;</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="nav-item nav-link seven-cols pr-0 pl-0 " id="nav-6-tab" data-toggle="tab" href="#nav-6"-->
+                             <!--role="tab" aria-controls="nav-6" aria-selected="false">-->
+                            <!--<div class="col-12 pl-0 pr-0">-->
+                                <!--<h1>FRI</h1>-->
+                            <!--</div>-->
+                            <!--<div class="col-12 pl-0 pr-0">-->
+                                <!--<i class="fas fa-cloud-sun-rain"></i>-->
+                            <!--</div>-->
+                            <!--<div class="col-12 pl-0 pr-0">-->
+                                <!--31<span>&#176;</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="nav-item nav-link seven-cols pr-0 pl-0 " id="nav-7-tab" data-toggle="tab" href="#nav-7"-->
+                             <!--role="tab" aria-controls="nav-7" aria-selected="false">-->
+                            <!--<div class="col-12 pl-0 pr-0">-->
+                                <!--<h1>SAT</h1>-->
+                            <!--</div>-->
+                            <!--<div class="col-12 pl-0 pr-0">-->
+                                <!--<i class="fas fa-sun"></i>-->
+                            <!--</div>-->
+                            <!--<div class="col-12 pl-0 pr-0">-->
+                                <!--31<span>&#176;</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    </div>
+                </nav>
+            </div>
+            <div class="tab-content clearData" id="nav-tabContent">
+                <!--<div class="tab-pane fade show active forecastTabContent" id="nav-1" role="tabpanel" aria-labelledby="nav-1-tab">-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-4">-->
+                            <!--<div class="col-12 forecastTabContentTitle text-arvig-green text-center"><h1>SUNDAY</h1></div>-->
+                            <!--<div class="col-12">&nbsp;</div>-->
+                            <!--<div class="col-12"><h3><i class="fas fa-thermometer-quarter"></i> Temp</h3></div>-->
+                            <!--<div class="col-12"><h3><i class="fas fa-wind"></i> Wind</h3></div>-->
+                            <!--<div class="col-12"><h3><i class="fas fa-tint"></i> Percipitation</h3></div>-->
+                        <!--</div>-->
+                        <!--<div class="col-8" style="overflow: hidden">-->
+                            <!--<div class="scrollbar" style="width: 10000px;overflow: scroll;padding-bottom: 20px;">-->
+                                <!--<div class="row text-center">-->
+                                    <!--<div class=" Fjalla" style="width: 150px;">3pm</div>-->
+                                    <!--<div class=" Fjalla" style="width: 150px;">3pm</div>-->
+                                    <!--<div class=" Fjalla" style="width: 150px;">6pm</div>-->
+                                    <!--<div class=" Fjalla" style="width: 150px;">9pm</div>-->
+                                    <!--<div class=" Fjalla" style="width: 150px;">12am</div>-->
+                                    <!--<div class=" Fjalla" style="width: 150px;">3pm</div>-->
+                                    <!--<div class=" Fjalla" style="width: 150px;">3pm</div>-->
+                                    <!--<div class=" Fjalla" style="width: 150px;">6pm</div>-->
+                                    <!--<div class=" Fjalla" style="width: 150px;">9pm</div>-->
+                                    <!--<div class=" Fjalla" style="width: 150px;">12am</div>-->
+                                <!--</div>-->
+                                <!--<div class="row">-->
+                                    <!--<div class="text-center" style="width: 150px"><i class="fas fa-cloud-sun lg"></i></div>-->
+                                    <!--<div class="text-center" style="width: 150px"><i class="fas fa-cloud-sun lg"></i></div>-->
+                                    <!--<div class="text-center" style="width: 150px"><i class="fas fa-cloud-sun lg"></i></div>-->
+                                    <!--<div class="text-center" style="width: 150px"><i class="fas fa-cloud-sun lg"></i></div>-->
+                                    <!--<div class="text-center" style="width: 150px"><i class="fas fa-cloud-sun lg"></i></div>-->
+                                    <!--<div class="text-center" style="width: 150px"><i class="fas fa-cloud-sun lg"></i></div>-->
+                                    <!--<div class="text-center" style="width: 150px"><i class="fas fa-cloud-sun lg"></i></div>-->
+                                    <!--<div class="text-center" style="width: 150px"><i class="fas fa-cloud-sun lg"></i></div>-->
+                                    <!--<div class="text-center" style="width: 150px"><i class="fas fa-cloud-sun lg"></i></div>-->
+                                    <!--<div class="text-center" style="width: 150px"><i class="fas fa-cloud-sun lg"></i></div>-->
+                                <!--</div>-->
+                                <!--<div class="row">-->
+                                    <!--<div class="text-center Fjalla" style="width: 150px"><span>37&#176;</span></div>-->
+                                    <!--<div class="text-center Fjalla" style="width: 150px"><span>37&#176;</span></div>-->
+                                    <!--<div class="text-center Fjalla" style="width: 150px"><span>37&#176;</span></div>-->
+                                    <!--<div class="text-center Fjalla" style="width: 150px"><span>37&#176;</span></div>-->
+                                    <!--<div class="text-center Fjalla" style="width: 150px"><span>37&#176;</span></div>-->
+                                    <!--<div class="text-center Fjalla" style="width: 150px"><span>37&#176;</span></div>-->
+                                    <!--<div class="text-center Fjalla" style="width: 150px"><span>37&#176;</span></div>-->
+                                    <!--<div class="text-center Fjalla" style="width: 150px"><span>37&#176;</span></div>-->
+                                    <!--<div class="text-center Fjalla" style="width: 150px"><span>37&#176;</span></div>-->
+                                    <!--<div class="text-center Fjalla" style="width: 150px"><span>37&#176;</span></div>-->
+                                <!--</div>-->
+                                <!--<div class="row">-->
+                                    <!--<div class="text-center Fjalla" style="width: 150px">2 <i class="fas fa-long-arrow-alt-down sm"></i></div>-->
+                                    <!--<div class="text-center Fjalla" style="width: 150px">2 <i class="fas fa-long-arrow-alt-down sm"></i></div>-->
+                                    <!--<div class="text-center Fjalla" style="width: 150px">4 <i class="fas fa-long-arrow-alt-down sm"></i></div>-->
+                                    <!--<div class="text-center Fjalla" style="width: 150px">6 <i class="fas fa-long-arrow-alt-down sm"></i></div>-->
+                                    <!--<div class="text-center Fjalla" style="width: 150px">8 <i class="fas fa-long-arrow-alt-down sm"></i></div>-->
+                                    <!--<div class="text-center Fjalla" style="width: 150px">2 <i class="fas fa-long-arrow-alt-down sm"></i></div>-->
+                                    <!--<div class="text-center Fjalla" style="width: 150px">2 <i class="fas fa-long-arrow-alt-down sm"></i></div>-->
+                                    <!--<div class="text-center Fjalla" style="width: 150px">4 <i class="fas fa-long-arrow-alt-down sm"></i></div>-->
+                                    <!--<div class="text-center Fjalla" style="width: 150px">6 <i class="fas fa-long-arrow-alt-down sm"></i></div>-->
+                                    <!--<div class="text-center Fjalla" style="width: 150px">8 <i class="fas fa-long-arrow-alt-down sm"></i></div>-->
+                                <!--</div>-->
+                                <!--<div class="row">-->
+                                    <!--<div class="text-center Fjalla" style="width: 150px">0%</div>-->
+                                    <!--<div class="text-center Fjalla" style="width: 150px">0%</div>-->
+                                    <!--<div class="text-center Fjalla" style="width: 150px">0%</div>-->
+                                    <!--<div class="text-center Fjalla" style="width: 150px">0%</div>-->
+                                    <!--<div class="text-center Fjalla" style="width: 150px">0%</div>-->
+                                    <!--<div class="text-center Fjalla" style="width: 150px">0%</div>-->
+                                    <!--<div class="text-center Fjalla" style="width: 150px">0%</div>-->
+                                    <!--<div class="text-center Fjalla" style="width: 150px">0%</div>-->
+                                    <!--<div class="text-center Fjalla" style="width: 150px">0%</div>-->
+                                    <!--<div class="text-center Fjalla" style="width: 150px">0%</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="tab-pane fade forecastTabContent" id="nav-2" role="tabpanel" aria-labelledby="nav-2-tab">-->
+                    <!--<div class="row text-center">-->
+                        <!--<div class="col-4 forecastTabContentTitle text-arvig-green"><h1>MONDAY</h1></div>-->
+                        <!--<div class="col-2 Fjalla">3pm</div>-->
+                        <!--<div class="col-2 Fjalla">6pm</div>-->
+                        <!--<div class="col-2 Fjalla">9pm</div>-->
+                        <!--<div class="col-2 Fjalla">12am</div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-4"></div>-->
+                        <!--<div class="col-2 text-center"><i class="fas fa-cloud-sun lg"></i></div>-->
+                        <!--<div class="col-2 text-center"><i class="fas fa-cloud-sun lg"></i></div>-->
+                        <!--<div class="col-2 text-center"><i class="fas fa-cloud-sun lg"></i></div>-->
+                        <!--<div class="col-2 text-center"><i class="fas fa-cloud-sun lg"></i></div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-4"><h3><i class="fas fa-thermometer-quarter"></i> Temp</h3></div>-->
+                        <!--<div class="col-2 text-center Fjalla"><span>37&#176;</span></div>-->
+                        <!--<div class="col-2 text-center Fjalla"><span>37&#176;</span></div>-->
+                        <!--<div class="col-2 text-center Fjalla"><span>37&#176;</span></div>-->
+                        <!--<div class="col-2 text-center Fjalla"><span>37&#176;</span></div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-4"><h3><i class="fas fa-wind"></i> Wind</h3></div>-->
+                        <!--<div class="col-2 text-center Fjalla">2 <i class="fas fa-long-arrow-alt-down sm"></i></div>-->
+                        <!--<div class="col-2 text-center Fjalla">4 <i class="fas fa-long-arrow-alt-down sm"></i></div>-->
+                        <!--<div class="col-2 text-center Fjalla">6 <i class="fas fa-long-arrow-alt-down sm"></i></div>-->
+                        <!--<div class="col-2 text-center Fjalla">8 <i class="fas fa-long-arrow-alt-down sm"></i></div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-4"><h3><i class="fas fa-tint"></i> Percipitation</h3></div>-->
+                        <!--<div class="col-2 text-center Fjalla">0%</div>-->
+                        <!--<div class="col-2 text-center Fjalla">0%</div>-->
+                        <!--<div class="col-2 text-center Fjalla">0%</div>-->
+                        <!--<div class="col-2 text-center Fjalla">0%</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="tab-pane fade forecastTabContent" id="nav-3" role="tabpanel" aria-labelledby="nav-3-tab">-->
+                    <!--<div class="row text-center">-->
+                        <!--<div class="col-4 forecastTabContentTitle text-arvig-green"><h1>TUESDAY</h1></div>-->
+                        <!--<div class="col-2 Fjalla">3pm</div>-->
+                        <!--<div class="col-2 Fjalla">6pm</div>-->
+                        <!--<div class="col-2 Fjalla">9pm</div>-->
+                        <!--<div class="col-2 Fjalla">12am</div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-4"></div>-->
+                        <!--<div class="col-2 text-center"><i class="fas fa-cloud-sun lg"></i></div>-->
+                        <!--<div class="col-2 text-center"><i class="fas fa-cloud-sun lg"></i></div>-->
+                        <!--<div class="col-2 text-center"><i class="fas fa-cloud-sun lg"></i></div>-->
+                        <!--<div class="col-2 text-center"><i class="fas fa-cloud-sun lg"></i></div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-4"><h3><i class="fas fa-thermometer-quarter"></i> Temp</h3></div>-->
+                        <!--<div class="col-2 text-center Fjalla"><span>37&#176;</span></div>-->
+                        <!--<div class="col-2 text-center Fjalla"><span>37&#176;</span></div>-->
+                        <!--<div class="col-2 text-center Fjalla"><span>37&#176;</span></div>-->
+                        <!--<div class="col-2 text-center Fjalla"><span>37&#176;</span></div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-4"><h3><i class="fas fa-wind"></i> Wind</h3></div>-->
+                        <!--<div class="col-2 text-center Fjalla">2 <i class="fas fa-long-arrow-alt-down sm"></i></div>-->
+                        <!--<div class="col-2 text-center Fjalla">4 <i class="fas fa-long-arrow-alt-down sm"></i></div>-->
+                        <!--<div class="col-2 text-center Fjalla">6 <i class="fas fa-long-arrow-alt-down sm"></i></div>-->
+                        <!--<div class="col-2 text-center Fjalla">8 <i class="fas fa-long-arrow-alt-down sm"></i></div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-4"><h3><i class="fas fa-tint"></i> Percipitation</h3></div>-->
+                        <!--<div class="col-2 text-center Fjalla">0%</div>-->
+                        <!--<div class="col-2 text-center Fjalla">0%</div>-->
+                        <!--<div class="col-2 text-center Fjalla">0%</div>-->
+                        <!--<div class="col-2 text-center Fjalla">0%</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="tab-pane fade forecastTabContent" id="nav-4" role="tabpanel" aria-labelledby="nav-4-tab">-->
+                    <!--<div class="row text-center">-->
+                        <!--<div class="col-4 forecastTabContentTitle text-arvig-green"><h1>WEDNESDAY</h1></div>-->
+                        <!--<div class="col-2 Fjalla">3pm</div>-->
+                        <!--<div class="col-2 Fjalla">6pm</div>-->
+                        <!--<div class="col-2 Fjalla">9pm</div>-->
+                        <!--<div class="col-2 Fjalla">12am</div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-4"></div>-->
+                        <!--<div class="col-2 text-center"><i class="fas fa-cloud-sun lg"></i></div>-->
+                        <!--<div class="col-2 text-center"><i class="fas fa-cloud-sun lg"></i></div>-->
+                        <!--<div class="col-2 text-center"><i class="fas fa-cloud-sun lg"></i></div>-->
+                        <!--<div class="col-2 text-center"><i class="fas fa-cloud-sun lg"></i></div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-4"><h3><i class="fas fa-thermometer-quarter"></i> Temp</h3></div>-->
+                        <!--<div class="col-2 text-center Fjalla"><span>37&#176;</span></div>-->
+                        <!--<div class="col-2 text-center Fjalla"><span>37&#176;</span></div>-->
+                        <!--<div class="col-2 text-center Fjalla"><span>37&#176;</span></div>-->
+                        <!--<div class="col-2 text-center Fjalla"><span>37&#176;</span></div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-4"><h3><i class="fas fa-wind"></i> Wind</h3></div>-->
+                        <!--<div class="col-2 text-center Fjalla">2 <i class="fas fa-long-arrow-alt-down sm"></i></div>-->
+                        <!--<div class="col-2 text-center Fjalla">4 <i class="fas fa-long-arrow-alt-down sm"></i></div>-->
+                        <!--<div class="col-2 text-center Fjalla">6 <i class="fas fa-long-arrow-alt-down sm"></i></div>-->
+                        <!--<div class="col-2 text-center Fjalla">8 <i class="fas fa-long-arrow-alt-down sm"></i></div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-4"><h3><i class="fas fa-tint"></i> Percipitation</h3></div>-->
+                        <!--<div class="col-2 text-center Fjalla">0%</div>-->
+                        <!--<div class="col-2 text-center Fjalla">0%</div>-->
+                        <!--<div class="col-2 text-center Fjalla">0%</div>-->
+                        <!--<div class="col-2 text-center Fjalla">0%</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="tab-pane fade forecastTabContent" id="nav-5" role="tabpanel" aria-labelledby="nav-5-tab">-->
+                    <!--<div class="row text-center">-->
+                        <!--<div class="col-4 forecastTabContentTitle text-arvig-green"><h1>THURSDAY</h1></div>-->
+                        <!--<div class="col-2 Fjalla">3pm</div>-->
+                        <!--<div class="col-2 Fjalla">6pm</div>-->
+                        <!--<div class="col-2 Fjalla">9pm</div>-->
+                        <!--<div class="col-2 Fjalla">12am</div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-4"></div>-->
+                        <!--<div class="col-2 text-center"><i class="fas fa-cloud-sun lg"></i></div>-->
+                        <!--<div class="col-2 text-center"><i class="fas fa-cloud-sun lg"></i></div>-->
+                        <!--<div class="col-2 text-center"><i class="fas fa-cloud-sun lg"></i></div>-->
+                        <!--<div class="col-2 text-center"><i class="fas fa-cloud-sun lg"></i></div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-4"><h3><i class="fas fa-thermometer-quarter"></i> Temp</h3></div>-->
+                        <!--<div class="col-2 text-center Fjalla"><span>37&#176;</span></div>-->
+                        <!--<div class="col-2 text-center Fjalla"><span>37&#176;</span></div>-->
+                        <!--<div class="col-2 text-center Fjalla"><span>37&#176;</span></div>-->
+                        <!--<div class="col-2 text-center Fjalla"><span>37&#176;</span></div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-4"><h3><i class="fas fa-wind"></i> Wind</h3></div>-->
+                        <!--<div class="col-2 text-center Fjalla">2 <i class="fas fa-long-arrow-alt-down sm"></i></div>-->
+                        <!--<div class="col-2 text-center Fjalla">4 <i class="fas fa-long-arrow-alt-down sm"></i></div>-->
+                        <!--<div class="col-2 text-center Fjalla">6 <i class="fas fa-long-arrow-alt-down sm"></i></div>-->
+                        <!--<div class="col-2 text-center Fjalla">8 <i class="fas fa-long-arrow-alt-down sm"></i></div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-4"><h3><i class="fas fa-tint"></i> Percipitation</h3></div>-->
+                        <!--<div class="col-2 text-center Fjalla">0%</div>-->
+                        <!--<div class="col-2 text-center Fjalla">0%</div>-->
+                        <!--<div class="col-2 text-center Fjalla">0%</div>-->
+                        <!--<div class="col-2 text-center Fjalla">0%</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="tab-pane fade forecastTabContent" id="nav-6" role="tabpanel" aria-labelledby="nav-6-tab">-->
+                    <!--<div class="row text-center">-->
+                        <!--<div class="col-4 forecastTabContentTitle text-arvig-green"><h1>FRIDAY</h1></div>-->
+                        <!--<div class="col-2 Fjalla">3pm</div>-->
+                        <!--<div class="col-2 Fjalla">6pm</div>-->
+                        <!--<div class="col-2 Fjalla">9pm</div>-->
+                        <!--<div class="col-2 Fjalla">12am</div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-4"></div>-->
+                        <!--<div class="col-2 text-center"><i class="fas fa-cloud-sun lg"></i></div>-->
+                        <!--<div class="col-2 text-center"><i class="fas fa-cloud-sun lg"></i></div>-->
+                        <!--<div class="col-2 text-center"><i class="fas fa-cloud-sun lg"></i></div>-->
+                        <!--<div class="col-2 text-center"><i class="fas fa-cloud-sun lg"></i></div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-4"><h3><i class="fas fa-thermometer-quarter"></i> Temp</h3></div>-->
+                        <!--<div class="col-2 text-center Fjalla"><span>37&#176;</span></div>-->
+                        <!--<div class="col-2 text-center Fjalla"><span>37&#176;</span></div>-->
+                        <!--<div class="col-2 text-center Fjalla"><span>37&#176;</span></div>-->
+                        <!--<div class="col-2 text-center Fjalla"><span>37&#176;</span></div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-4"><h3><i class="fas fa-wind"></i> Wind</h3></div>-->
+                        <!--<div class="col-2 text-center Fjalla">2 <i class="fas fa-long-arrow-alt-down sm"></i></div>-->
+                        <!--<div class="col-2 text-center Fjalla">4 <i class="fas fa-long-arrow-alt-down sm"></i></div>-->
+                        <!--<div class="col-2 text-center Fjalla">6 <i class="fas fa-long-arrow-alt-down sm"></i></div>-->
+                        <!--<div class="col-2 text-center Fjalla">8 <i class="fas fa-long-arrow-alt-down sm"></i></div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-4"><h3><i class="fas fa-tint"></i> Percipitation</h3></div>-->
+                        <!--<div class="col-2 text-center Fjalla">0%</div>-->
+                        <!--<div class="col-2 text-center Fjalla">0%</div>-->
+                        <!--<div class="col-2 text-center Fjalla">0%</div>-->
+                        <!--<div class="col-2 text-center Fjalla">0%</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="tab-pane fade forecastTabContent" id="nav-7" role="tabpanel" aria-labelledby="nav-7-tab">-->
+                    <!--<div class="row text-center">-->
+                        <!--<div class="col-4 forecastTabContentTitle text-arvig-green"><h1>SATURDAY</h1></div>-->
+                        <!--<div class="col-2 Fjalla">3pm</div>-->
+                        <!--<div class="col-2 Fjalla">6pm</div>-->
+                        <!--<div class="col-2 Fjalla">9pm</div>-->
+                        <!--<div class="col-2 Fjalla">12am</div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-4"></div>-->
+                        <!--<div class="col-2 text-center"><i class="fas fa-cloud-sun lg"></i></div>-->
+                        <!--<div class="col-2 text-center"><i class="fas fa-cloud-sun lg"></i></div>-->
+                        <!--<div class="col-2 text-center"><i class="fas fa-cloud-sun lg"></i></div>-->
+                        <!--<div class="col-2 text-center"><i class="fas fa-cloud-sun lg"></i></div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-4"><h3><i class="fas fa-thermometer-quarter"></i> Temp</h3></div>-->
+                        <!--<div class="col-2 text-center Fjalla"><span>37&#176;</span></div>-->
+                        <!--<div class="col-2 text-center Fjalla"><span>37&#176;</span></div>-->
+                        <!--<div class="col-2 text-center Fjalla"><span>37&#176;</span></div>-->
+                        <!--<div class="col-2 text-center Fjalla"><span>37&#176;</span></div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-4"><h3><i class="fas fa-wind"></i> Wind</h3></div>-->
+                        <!--<div class="col-2 text-center Fjalla">2 <i class="fas fa-long-arrow-alt-down sm"></i></div>-->
+                        <!--<div class="col-2 text-center Fjalla">4 <i class="fas fa-long-arrow-alt-down sm"></i></div>-->
+                        <!--<div class="col-2 text-center Fjalla">6 <i class="fas fa-long-arrow-alt-down sm"></i></div>-->
+                        <!--<div class="col-2 text-center Fjalla">8 <i class="fas fa-long-arrow-alt-down sm"></i></div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-4"><h3><i class="fas fa-tint"></i> Percipitation</h3></div>-->
+                        <!--<div class="col-2 text-center Fjalla">0%</div>-->
+                        <!--<div class="col-2 text-center Fjalla">0%</div>-->
+                        <!--<div class="col-2 text-center Fjalla">0%</div>-->
+                        <!--<div class="col-2 text-center Fjalla">0%</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
+        </div>
+    </div>
+    <div class="card col-12 bg-transparent text-white">
+        <p class="text-center">
+            <a class="text-arvig-green" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                RADAR
+            </a>
+        </p>
+        <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+
+    $( function() {
+        var availableTags = [
+            "ActionScript",
+            "AppleScript",
+            "Asp",
+            "BASIC",
+            "C",
+            "C++",
+            "Clojure",
+            "COBOL",
+            "ColdFusion",
+            "Erlang",
+            "Fortran",
+            "Groovy",
+            "Haskell",
+            "Java",
+            "JavaScript",
+            "Lisp",
+            "Perl",
+            "PHP",
+            "Python",
+            "Ruby",
+            "Scala",
+            "Scheme"
+        ];
+        $( "#searchValue" ).autocomplete({
+            source: availableTags
+        });
+    } );
+
+
+
+
+
+    var weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    var abbr = {"Sunday":"SUN","Monday":"MON","Tuesday":"TUE","Wednesday":"WED","Thursday":"THUR","Friday":"FRI","Saturday":"SAT"};
+    var forecast = new Array();
+        // {"Sunday":[],"Monday":[],"Tuesday":[],"Wednesday":[],"Thursday":[],"Friday":[],"Saturday":[]};
+    function getForcast(gridData) {
+        forecast = new Array();
+        $.ajax({
+            url: gridData,
+            success: function (data) {
+                // console.log('------------------gridData--------------------------');
+                // console.log(data);
+                var percipCache;
+                $.each( data.properties.temperature.values, function( key, value ) {
+                    // forecast[counter] = {};
+
+                    var myDate = dateFromISO8601(value.validTime);
+                    var currentDate = new Date();
+                    var date = myDate.getDate();
+                    var dayName = weekday[myDate.getDay()];
+                    var span = getTimeSpan(value.validTime);
+                    var hour = myDate.getHours();
+                    var i;
+
+                        // console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+                        // console.log(span);
+                        // console.log(value.validTime);
+                    for (i = 0; i < span; i++) {
+                        var newHour = (hour + i);
+                        // console.log(hour);
+                        // console.log(i);
+                        // console.log(newHour);
+                        // console.log(dayName + ' - ' + date + ' - ' + newHour);
+                        if(!forecast[date]){
+                            forecast[date] = {};
+                        }
+                        if(!forecast[date]['hours']){
+                            forecast[date]['hours'] = {};
+                        }
+                        myDate.setHours (newHour);
+                            forecast[date]['hours'][newHour] = {"dayName":dayName,"time":myDate,"temp":temperatureConverter(value.value)};
+                    }
+                    if(!forecast[date]['temp']){
+                        forecast[date]['temp'] = temperatureConverter(value.value);
+                    }
+                    if(!forecast[date]['dayName']){
+                        forecast[date]['dayName'] = dayName;
+                    }
+                        // console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+
+                        // var hourData = {[hour]:{}};
+                    // var innerObj = {};
+                    // forecast[dayName][hour] = {};
+                    // forecast[dayName].push(innerObj);
+                    // var here = forecast[dayName][hour];
+                    // if(myDate > currentDate){
+                    //     var newData = {[hour]:{}};
+                    //     var newData = {"time":myDate,"hour":myDate.getHours(),"temp":temperatureConverter(value.value)};
+                    // console.log(date);
+                    // console.log(hour);
+                    // forecast[dayName][date][hour] = {};
+                    // console.log(forecast);
+                        // var dayArray = forecast[dayName] = '';
+                        // console.log(weekdayTest[dayName]);
+                    // here.push(newData);
+                });
+                    // console.log(forecast);
+                $.each( data.properties.probabilityOfPrecipitation.values, function( key, value ) {
+                    // forecast[counter] = {};
+                    var span = getTimeSpan(value.validTime);
+
+                    var myDate = dateFromISO8601(value.validTime);
+                    var currentDate = new Date();
+                    var hour = myDate.getHours();
+                    var date = myDate.getDate();
+                    var dayName = weekday[myDate.getDay()];
+
+                    for (i = 0; i < span; i++) {
+                        var newHour = (hour + i);
+                        // console.log(hour);
+                        // console.log(i);
+                        // console.log(newHour);
+                        // console.log(dayName + ' - ' + date + ' - ' + newHour);
+                        if(forecast[date]['hours'][newHour]){
+                            forecast[date]['hours'][newHour]['percip'] = value.value;
+                        }
+                    }
+                    if(!forecast[date]['percip']){
+                        forecast[date]['percip'] = value.value;
+                    }
+                    // if(myDate > currentDate){
+                    //     var newData = {"percip":value.value};
+                        // var dayArray = forecast[dayName] = '';
+                    // console.log('date = ' + value.validTime);
+                    // console.log('hour = ' + hour);
+                        // else {
+                        //     forecast[dayName][date][hour] = {"percip":value.value};
+                        // }
+                });
+                $.each( data.properties.windSpeed.values, function( key, value ) {
+                    // forecast[counter] = {};
+                    var span = getTimeSpan(value.validTime);
+
+                    var myDate = dateFromISO8601(value.validTime);
+                    var currentDate = new Date();
+                    var hour = myDate.getHours();
+                    var date = myDate.getDate();
+                    var dayName = weekday[myDate.getDay()];
+
+                    for (i = 0; i < span; i++) {
+                        var newHour = (hour + i);
+                        // console.log(hour);
+                        // console.log(i);
+                        // console.log(newHour);
+                        // console.log(dayName + ' - ' + date + ' - ' + newHour);
+                        if(forecast[date]['hours'][newHour]){
+                            forecast[date]['hours'][newHour]['wind'] = value.value;
+                        }
+                    }
+                    if(!forecast[date]['wind']){
+                        forecast[date]['wind'] = value.value;
+                    }
+                    // if(myDate > currentDate){
+                    //     var newData = {"percip":value.value};
+                        // var dayArray = forecast[dayName] = '';
+                    // console.log('date = ' + value.validTime);
+                    // console.log('hour = ' + hour);
+                        // else {
+                        //     forecast[dayName][date][hour] = {"percip":value.value};
+                        // }
+                });
+                $.each( data.properties.windDirection.values, function( key, value ) {
+                    // forecast[counter] = {};
+                    var span = getTimeSpan(value.validTime);
+
+                    var myDate = dateFromISO8601(value.validTime);
+                    var currentDate = new Date();
+                    var hour = myDate.getHours();
+                    var date = myDate.getDate();
+                    var dayName = weekday[myDate.getDay()];
+
+                    for (i = 0; i < span; i++) {
+                        var newHour = (hour + i);
+                        if(forecast[date]['hours'][newHour]){
+                            forecast[date]['hours'][newHour]['windDirection'] = value.value;
+                        }
+                    }
+                    if(!forecast[date]['windDirection']){
+                        forecast[date]['windDirection'] = value.value;
+                    }
+                });
+                    // console.log(forecast);
+
+
+                // $('#output').html(data.properties);
+        getForecast();
+            },
+            error: function () {
+                // $('#output').html('Bummer: there was an error!');
+            },
+        });
+    };
+    function getForecast(){
+        var tab = '';
+        var tabContent = '';
+        var currentTemp = 0;
+        var count = 0;
+        $('#nav-tabContent').html('');
+        $.each( forecast, function( date, info ) {
+            if(info && count < 7 ){
+
+            // console.log(date);
+            console.log(info);
+            currentTemp = Math.round(info.temp);
+            var active = (count < 1) ? "active" : "";
+                tab += '<div class="nav-item nav-link seven-cols pr-0 pl-0 ' + active +'" id="nav-' + date +'-tab" data-toggle="tab"\n' +
+                    '                             href="#nav-' + date +'" role="tab" aria-controls="nav-' + date +'" aria-selected="true">\n' +
+                    '                            <div class="col-12 pl-0 pr-0">\n' +
+                    '                                <h1>'+abbr[info.dayName]+'</h1>\n' +
+                    '                            </div>\n' +
+                    '                            <div class="col-12 pl-0 pr-0">\n' +
+                    '                                <i class="fas fa-cloud"></i>\n' +
+                    '                            </div>\n' +
+                    '                            <div class="col-12 pl-0 pr-0">\n' +
+                    '                                ' + currentTemp + '<span>&#176;</span>\n' +
+                    '                            </div>\n' +
+                    '                        </div>';
+
+            // buildTabContent(count, active, day, dayName);
+        // console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+        // console.log(dayName);
+        // console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+            $('#nav-tabContent').append(buildTabContent(date, active, info, info.dayName));
+            // tabContent += buildTabContent(count, active);
+            count++;
+            }
+        });
+        $('#nav-tab').html(tab);
+        // // $('#nav-tabContent').append(tabContent);
+    }
+
+    function getPoints(lat, lon) {
+        $.ajax({
+            url: 'https://api.weather.gov/points/' + lon + ',' + lat,
+            success: function (data) {
+                // console.log('------------------getPoints--------------------------');
+                // console.log(data.properties.forecastGridData);
+                getForcast(data.properties.forecastGridData);
+                // $('#output').html(data.properties);
+            },
+            error: function () {
+                // $('#output').html('Bummer: there was an error!');
+            },
+        });
+    };
+
+    function buildTabContent(count, active, data, dayName){
+        // console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+        // console.log(dayName);
+        // console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+        var show = (active == 'active') ? 'show' : '';
+        var tabContent = $('<div class="tab-pane fade ' + show +' ' + active +' forecastTabContent" id="nav-' + count +'" role="tabpanel" aria-labelledby="nav-' + count +'-tab">' +
+            '</div>');
+        $('#nav-tabContent').append(tabContent);
+        buildTabInnerContent(data, dayName,tabContent);
+        // var innerContent = '<div class="row text-center">' + count + '</div>';
+        // tabContent.append(innerContent);
+        // var returnVal = tabContent.html(innerContent);
+        $('#nav-tabContent').append(tabContent);
+        return tabContent;
+    }
+
+    function buildTabInnerContent(data, dayName, tabContent){
+        var wrapper = $('<div class="row"></div>');
+        var titles = $('<div class="col-4"><div class="col-12 forecastTabContentTitle text-arvig-green text-center"><h1>'+dayName+'</h1></div>' +
+            '<div class="col-12">&nbsp;</div>' +
+            '<div class="col-12"><h3><i class="fas fa-thermometer-quarter"></i> Temp</h3></div>' +
+            '<div class="col-12"><h3><i class="fas fa-wind"></i> Wind</h3></div>' +
+            '<div class="col-12"><h3><i class="fas fa-tint"></i> Percipitation</h3></div></div>');
+        var info = $('<div class="col-8"></div>');
+        var header = $('<div class="row text-center"></div>');
+        var icons = $('<div class="row"></div>');
+        var temp = $('<div class="row"></div>');
+        var wind = $('<div class="row"></div>');
+        var percip = $('<div class="row"></div>');
+        var internalCount = 0;
+        wrapper.append(titles);
+        $.each( data.hours, function( key, value ) {
+            if(internalCount < 4){
+
+                var dataTime = new Date(value.time);
+                var currentTime = new Date();
+                if(dataTime > currentTime) {
+                    // console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+                    // console.log(dayName);
+                    // console.log(dataTime);
+                    // console.log(currentTime);
+                    // console.log(value.time);
+                    // console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+                    header.append('<div class="col-3 Fjalla">'+get12Hr(key)+'</div>');
+                    icons.append('<div class="col-3 text-center"><i class="fas fa-cloud-sun lg"></i></div>');
+                    temp.append('<div class="col-3 text-center Fjalla"><span>'+Math.round(value.temp)+'&#176;</span></div>');
+                    wind.append('<div class="col-3 text-center Fjalla">'+ Math.round(value.wind) + '  ' + windDirIcon(value.windDirection) + '</div>');
+                    percip.append('<div class="col-3 text-center Fjalla">'+ value.percip +'%</div>');
+                }
+
+            }
+            internalCount++;
+        });
+        info.append(header, icons, temp, wind, percip);
+        wrapper.append(titles, info);
+        tabContent.append(wrapper);
+        // tabContent.append(wrapper, header, icons, temp, wind, percip);
+        // tabContent.append('<div class="row text-center"><div class="col-4 forecastTabContentTitle text-arvig-green"><h1>'+dayName+'</h1></div></div>');
+        return true;
+
+
+    }
+
+    function getGeo(value) {
+        $.ajax({
+            url: 'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?f=json&singleLine='+ value +'&outFields=Match_addr,Addr_type',
+            success: function (data) {
+                // console.log('------------------getGeo--------------------------');
+                // console.log(data.candidates[0].location);
+                var location = data.candidates[0].location;
+                getPoints(location.x, location.y)
+                // $('#output').html(data.properties);
+            },
+            error: function () {
+                // $('#output').html('Bummer: there was an error!');
+            },
+        });
+    }
+                $( "#searchValue" ).keyup(function(){
+                    setAutoComplete($(this).val());
+                })
+    function setAutoComplete(value) {
+        $.ajax({
+            url: 'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?f=json&singleLine='+ value +'&outFields=Match_addr,Addr_type',
+            success: function (data) {
+                if(data.candidates[0]){
+                    var address = data.candidates[0].address;
+                    $( "#searchValue" ).autocomplete({
+                        source: [address]
+                    });
+                }
+                // console.log('------------------getGeo--------------------------');
+                // console.log(data.candidates[0]);
+                // var location = data.candidates[0].location;
+                // getPoints(location.x, location.y)
+                // $('#output').html(data.properties);
+            },
+            error: function () {
+                // $('#output').html('Bummer: there was an error!');
+            },
+        });
+    }
+
+    function temperatureConverter(valNum) {
+        // return valNum;
+        valNum = parseFloat(valNum);
+        return (valNum * 1.8) + 32;
+    }
+
+    function dateFromISO8601(isostr) {
+        var parts = isostr.match(/\d+/g);
+        return new Date(parts[0], parts[1] - 1, parts[2], parts[3], parts[4], parts[5]);
+    }
+    function get12Hr(hour){
+        if(hour == 0) {
+            return '12AM'
+        }else if(hour > 12){
+            return (hour - 12) + 'PM'
+        } else {
+            return hour + 'AM'
+        }
+    }
+    function getTimeSpan(time){
+        var span = time.split("/");
+        var mystring = span[1];
+        mystring = mystring.match(/[0-9][0-9]|[0-9]/g);
+        // console.log(mystring.join());
+        // mystring = mystring.replace('PH','');
+        // console.log(mystring[0])
+        return mystring[0];
+    }
+    function windDirIcon(deg = 0){
+        return '<i class="fas fa-long-arrow-alt-down sm" style="-webkit-transform: rotate(' + deg + 'deg);\n' +
+        '    -moz-transform: rotate(' + deg + 'deg);\n' +
+        '    -ms-transform: rotate(' + deg + 'deg);\n' +
+        '    -o-transform: rotate(' + deg + 'deg);\n' +
+        '    transform: rotate(' + deg + 'deg);"></i>';
+
+    }
+    $('#searchButton').click(function(){
+        var value = $('#searchValue').val();
+        $('.clearData').html('');
+        if(value){
+            getGeo(value);
+        }
+    })
+    getGeo(56477);
+</script>
+</html>
